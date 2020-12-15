@@ -40,6 +40,7 @@
 <body>
 <div class="container" align="center">
 <h4>회원 가입 양식</h4><br />
+<form action="join.bo" method="post">
 <div class="box-title"><p>아이디</p></div>
 <input type="text" name="id" class="box-border" /><br />
 <div class="box-title"><p>비밀번호</p></div>
@@ -49,10 +50,11 @@
 <div class="box-title"><p>이름</p></div>
 <input type="text" name="name" class="box-border" /><br />
 <div class="box-title"><p>생년월일</p></div>
-<input type="date" name="birth" class="box-border" value="1980-01-01"/><br />
+<input type="text" name="birth" class="box-border" placeholder="yyyy-mm-dd"/><br />
 <div class="box-title"><p>이메일</p></div>
 <input type="email" name="email" class="box-border" /><br />
 <button type="submit" class="btn-submit" >회원가입</button>
+</form>
 </div>
 </body>
 </html>
