@@ -1,0 +1,40 @@
+@import url(http://fonts.googleleapis.com/earlyaccess/nanumgothic.css); /* 나눔고딕 */
+@import url(http://fonts.googleleapis.com/earlyaccess/hanna.css);  /* 배민체 */
+@import url(http://fonts.googleleapis.com/earlyaccess/notosanakr.css); /* 본고딕 */
+@import url(http://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsuare.css); /* 나눔스퀘어 */
+
+* {
+font-family: 'Nanum Gothic';
+}
+thead th {
+	background-color: #006DCC;
+	color: white;
+	text-align: center;
+}
+tr td:first-child,
+tr td:first-child {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+tr td:last-child,
+tr td:last-child {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+h5 {
+	font-family: 'Nato Sans KR';
+	font-size: 15px;
+}
+h4 {
+	font-family: 'Nato Sans KR';
+}
+h3 {
+	font-family: 'Hanna';
+}
+h2 {
+	font-family: 'Hanna';
+}
+h1 {
+	font-family: 'Hanna';
+}
+

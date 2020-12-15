@@ -35,5 +35,21 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+<<<<<<< HEAD
+		<servlet-mapping>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<url-pattern>*.bo</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>LoginCheckFilter</filter-name>
+		<filter-class>filter.LoginCheckFilter</filter-class>
+	</filter>
+		<filter-mapping>
+		<filter-name>LoginCheckFilter</filter-name>
+				<url-pattern>/changePwd.bo</url-pattern>
+		</filter-mapping>
+=======
+>>>>>>> refs/remotes/origin/master
   
 </web-app>
