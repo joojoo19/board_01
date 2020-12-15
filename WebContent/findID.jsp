@@ -40,6 +40,7 @@
 </head>
 <body>
 <div class="container" align="center">
+<h4>아이디 찾기</h4><br />
 <div class="box-title"><p>이름</p></div>
 <input type="text" name="name" class="box-border" /><br />
 <div class="box-title"><p>이메일</p></div>
