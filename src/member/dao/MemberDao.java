@@ -14,7 +14,7 @@ public class MemberDao {
 
 		Member member = null;
 
-		String sql = "SELECT id, name, password, email, birth " + "FROM member " + "WHERE id=?";
+		String sql = "SELECT id, name, password, email " + "FROM board_member " + "WHERE id=?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,7 +30,7 @@ public class MemberDao {
 				member.setName(rs.getString(2));
 				member.setPw(rs.getString(3));
 				member.setEmail(rs.getString(4));
-				member.setBirth(rs.getTimestamp(5));
+
 			}
 
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class MemberDao {
 	}
 
 	public void insert(Connection con, Member member) throws SQLException {
-		String sql = "INSERT INTO member " + "(id, name, password, email, birth) " + "VALUES (?, ?, ?, ?, ?) ";
+		String sql = "INSERT INTO board_member " + "(id, name, password, email) " + "VALUES (?, ?, ?, ?) ";
 
 		PreparedStatement pstmt = null;
 
@@ -55,7 +55,6 @@ public class MemberDao {
 			pstmt.setString(2, member.getName());
 			pstmt.setString(3, member.getPw());
 			pstmt.setString(4, member.getEmail());
-			pstmt.setTimestamp(5, (Timestamp) member.getBirth());
 
 			pstmt.executeQuery();
 		} catch (Exception e) {

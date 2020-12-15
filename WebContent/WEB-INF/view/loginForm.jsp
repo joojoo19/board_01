@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -35,34 +36,14 @@
 </head>
 <body>
 <div class="container" align="center">
-<h4>회원 가입 양식</h4><br />
+<h4 style="margin: 15px">로 그 인</h4>
 <input type="text" name="id" class="box-border" placeholder="아이디"/><br />
 <input type="text" name="pw" class="box-border" placeholder="비밀번호"/><br />
 <button type="submit" class="btn-submit" >로그인</button>
-<p> <a href="findid.co">아이디 찾기</a> <a href="findpw.co">비밀번호 찾기</a> <a href="join.co">회원가입</a> </p>
+<p> <a href="findid.do">아이디 찾기</a> <a href="findpw.do">비밀번호 찾기</a> <a href="join.do">회원가입</a> </p>
 </div>
 <!-- 로그인 성공 메세지 -->
-<c:if test="true">
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-</c:if>
+<u:joinSucMs/>
 
 </body>
 </html>

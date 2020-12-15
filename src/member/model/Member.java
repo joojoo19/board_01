@@ -7,7 +7,7 @@ public class Member {
 	private String name;
 	private String pw;
 	private String email;
-	private Date birth;
+
 
 	public String getId() {
 		return id;
@@ -23,10 +23,6 @@ public class Member {
 
 	public String getEmail() {
 		return email;
-	}
-
-	public Date getBirth() {
-		return birth;
 	}
 	public boolean matchPassword(String pwd) {
 		return pw.equals(pwd);
@@ -52,8 +48,5 @@ public class Member {
 		this.email = email;
 	}
 
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
 	
 }
