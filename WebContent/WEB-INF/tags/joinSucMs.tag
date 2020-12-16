@@ -1,6 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 	<%
 		String messageContent = null;
 	if (session.getAttribute("messageContent") != null) {
@@ -25,7 +26,7 @@ else
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
 						</button>
-						<h4 class="modal-title"><%= messageType %>
+						<h4 class="modal-title">
 						</h4>
 					</div>
 					<div class="modal-body"><%= messageContent %></div>

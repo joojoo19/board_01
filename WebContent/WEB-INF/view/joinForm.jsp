@@ -39,6 +39,10 @@
 	}
 
 </style>
+<script type="text/javascript">
+$("input").focus(function() {
+	$(this).css("border-color", "#608df9"); });
+</script>
 <title>회원가입</title>
 </head>
 <body>
@@ -70,5 +74,6 @@
 <button type="submit" class="btn-submit" >회원가입</button>
 </form>
 </div>
+<u:joinSucMs/>
 </body>
 </html>

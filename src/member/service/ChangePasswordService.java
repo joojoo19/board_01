@@ -11,29 +11,33 @@ import member.model.Member;
 public class ChangePasswordService {
 	private MemberDao memberDao = new MemberDao();
 	
-	public void changePassword(String userId, String curPwd, String newPwd) throws Exception {
-		Connection con = null;
+	public void changePassword(String userId, String curPwd, String newPwd) {
+		Connection conn = null;
 		
 		try {
-			con = ConnectionProvider.getConnection();
-			con.setAutoCommit(false);
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
 			
-			Member member = memberDao.selectById(con, userId);
-			if(member == null) {
+			Member member = memberDao.selectById(conn, userId);
+			
+			if (member == null) {
 				throw new MemberNotFoundException();
 			}
-			if(!member.matchPassword(curPwd)) {
+			if (!member.matchPassword(curPwd)) {
 				throw new InvalidPasswordException();
 			}
+			if(member.getPw().equals(newPwd)) {
+				throw new SameAsBeforeException();
+			}
+			
 			member.changePassword(newPwd);
-			memberDao.update(con, member);
-			con.commit();
+			memberDao.update(conn, member);
+			conn.commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			JdbcUtil.rollback(con);
+			JdbcUtil.rollback(conn);
 			throw new RuntimeException(e);
 		} finally {
-			JdbcUtil.close(con);
+			JdbcUtil.close(conn);
 		}
 	}
 }
