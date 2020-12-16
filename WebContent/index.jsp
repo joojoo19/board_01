@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="css/custom.css">
 <style type="text/css">
 	.container {
@@ -34,6 +36,7 @@
 <title>로그인</title>
 </head>
 <body>
+<u:navbar/>
 <div class="container" align="center">
 <h4 style="margin: 15px">로 그 인</h4>
 <input type="text" name="id" class="box-border" placeholder="아이디"/><br />

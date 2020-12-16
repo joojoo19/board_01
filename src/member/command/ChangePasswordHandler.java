@@ -10,6 +10,7 @@ import auth.service.User;
 import member.service.ChangePasswordService;
 import member.service.InvalidPasswordException;
 import member.service.MemberNotFoundException;
+import member.service.SameAsBeforeException;
 import mvc.command.CommandHandler;
 
 public class ChangePasswordHandler implements CommandHandler {
@@ -18,9 +19,9 @@ public class ChangePasswordHandler implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if(req.getMethod().equalsIgnoreCase("GET")) {
+		if (req.getMethod().equalsIgnoreCase("get")) {
 			return processForm(req, res);
-		} else if(req.getMethod().equalsIgnoreCase("POST")) {
+		} else if (req.getMethod().equalsIgnoreCase("post")) {
 			return processSubmit(req, res);
 		} else {
 			res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -28,39 +29,47 @@ public class ChangePasswordHandler implements CommandHandler {
 		}
 	}
 
+	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+		return FORM_VIEW;
+	}
+
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		User user = (User) req.getSession().getAttribute("authUser");
 		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
+		
 		String curPwd = req.getParameter("curPwd");
 		String newPwd = req.getParameter("newPwd");
 		
-		if(curPwd == null || curPwd.isEmpty()) {
-			errors.put("curPwd", Boolean.TRUE);
+		if (curPwd == null || curPwd.isEmpty()) {
+			errors.put("curPwd", true);
 		}
-		if(newPwd == null || newPwd.isEmpty()) {
-			errors.put("newPwd", Boolean.TRUE);
+		
+		if (newPwd == null || newPwd.isEmpty()) {
+			errors.put("newPwd", true);
 		}
-		if(!errors.isEmpty()) {
+		if (!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
+		
 		try {
 			changePwdSvc.changePassword(user.getId(), curPwd, newPwd);
 			return "changePwdSuccess";
 		} catch (InvalidPasswordException e) {
-			e.printStackTrace();
-			errors.put("badCurPwd", Boolean.TRUE);
+			errors.put("badCurPwd", true);
 			return FORM_VIEW;
-		} catch (MemberNotFoundException e) {
+		}	catch (SameAsBeforeException e) {
 			e.printStackTrace();
+			errors.put("badNewPwd", true);
+			return FORM_VIEW;
+		} 
+		catch (MemberNotFoundException e) {
 			res.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return null;
 		}
+		
 	}
-
-	private String processForm(HttpServletRequest req, HttpServletResponse res) {
-		return FORM_VIEW;
-	}
+	
 	
 }

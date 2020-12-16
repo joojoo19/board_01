@@ -35,6 +35,7 @@
 <title>로그인</title>
 </head>
 <body>
+<u:navbar/>
 <div class="container" align="center">
 <h4 style="margin: 15px">로 그 인</h4>
 <input type="text" name="id" class="box-border" placeholder="아이디"/><br />
@@ -42,7 +43,6 @@
 <button type="submit" class="btn-submit" >로그인</button>
 <p> <a href="findid.do">아이디 찾기</a> <a href="findpw.do">비밀번호 찾기</a> <a href="join.do">회원가입</a> </p>
 </div>
-<!-- 로그인 성공 메세지 -->
 <u:joinSucMs/>
 
 </body>
