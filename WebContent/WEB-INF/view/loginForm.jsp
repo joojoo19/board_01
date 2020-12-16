@@ -11,37 +11,52 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="css/custom.css">
-<style type="text/css">
-	.container {
-		margin-top: 10%;
-	}
-	.box-border {
-		border: solid 1px #608df9;
-		margin: 5px;
-		width : 250px;
-		height: 40px;
-	}
-	.btn-submit {
-		background-color: #608df9;
-		border: solid 1px #608df9;
-		color: white;
-		margin: 3px;
-		width : 250px;
-		height: 40px;
-	}
 
-</style>
 <title>로그인</title>
 </head>
 <body>
 <u:navbar/>
-<div class="container" align="center">
-<h4 style="margin: 15px">로 그 인</h4>
-<input type="text" name="id" class="box-border" placeholder="아이디"/><br />
-<input type="text" name="pw" class="box-border" placeholder="비밀번호"/><br />
-<button type="submit" class="btn-submit" >로그인</button>
-<p> <a href="findid.do">아이디 찾기</a> <a href="findpw.do">비밀번호 찾기</a> <a href="join.do">회원가입</a> </p>
+<div class="container">
+<div class="row">
+	<div class="col-4">
+	</div>
+	<div class="col-4">
+		<h3>로그인</h3>
+	<br />
+<form action="${root }/login.do" method="post">
+<div class="form-group">
+    <label for="input1-id">아이디</label>
+    <input type="text" class="form-control" name="id" value="${param.id}" id="input1-id" style="border-color: #608df9">
+    <c:if test="${errors.id }">
+    <small class="form-text text-danger">ID를 입력하세요.</small></c:if>
+        <c:if test="${errors.idNotMatch }">
+    <small class="form-text text-danger">ID가 일치하지 않습니다.</small></c:if>
+  </div>
+  <div class="form-group">
+    <label for="input3-pw">암호</label>
+    <input type="password" class="form-control" id="input3-pw" name="pw" style="border-color: #608df9">
+    <c:if test="${errors.pw }">
+     <small class="form-text text-danger">암호를 입력하세요.</small></c:if>
+         <c:if test="${errors.PwNotMatch }">
+     <small class="form-text text-danger">암호가 일치하지 않습니다.</small></c:if>
+  </div>
+  		<div class="text-right">
+  <button type="submit" class="btn btn-primary" style="width: 100%">로그인</button></div>
+  
+</form>
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-fill bd-highlight"><a href="${root }/findid.do">아이디찾기</a></div>
+  <div class="p-2 flex-fill bd-highlight"><a href="${root }/findpw.do">비밀번호찾기</a></div>
+  <div class="p-2 flex-fill bd-highlight"><a href="${root }/join.do">회원가입</a></div>
+</div>
+	</div>
+</div>
+	<div class="col-4">
+
+	</div>
+
 </div>
 <u:joinSucMs/>
 

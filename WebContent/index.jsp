@@ -12,9 +12,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="css/custom.css">
 
-<title>로그인</title>
+<title>joojoo's Home</title>
 </head>
 <body>
 <u:navbar/>
@@ -26,10 +26,16 @@
       <img src="IMG_20190321_122012.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="IMG_20190321_120537.jpg" class="d-block w-100" alt="...">
+      <img src="DSCF3939.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="1553174654317.jpg" class="d-block w-100" alt="...">
+      <img src="DSCF1425.jpg" class="d-block w-100" alt="...">
+    </div>
+            <div class="carousel-item">
+      <img src="DSCF3928.jpg" class="d-block w-100" alt="...">
+    </div>
+        <div class="carousel-item">
+      <img src="DSCF1829.jpg" class="d-block w-100" alt="...">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

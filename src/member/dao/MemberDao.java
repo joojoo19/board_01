@@ -14,7 +14,7 @@ public class MemberDao {
 
 		Member member = null;
 
-		String sql = "SELECT id, name, password, email " + "FROM board_member " + "WHERE id=?";
+		String sql = "SELECT memberid, name, password, email, regdate " + "FROM member " + "WHERE memberid=?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,6 +30,7 @@ public class MemberDao {
 				member.setName(rs.getString(2));
 				member.setPw(rs.getString(3));
 				member.setEmail(rs.getString(4));
+				member.setRegDate(rs.getTimestamp(5));
 
 			}
 
@@ -44,7 +45,7 @@ public class MemberDao {
 	}
 
 	public void insert(Connection con, Member member) throws SQLException {
-		String sql = "INSERT INTO board_member " + "(id, name, password, email) " + "VALUES (?, ?, ?, ?) ";
+		String sql = "INSERT INTO member " + "(memberid, name, password, email, regdate) " + "VALUES (?, ?, ?, ?, SYSDATE) ";
 
 		PreparedStatement pstmt = null;
 
@@ -64,5 +65,38 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
-	
+	public void update(Connection con, Member member) throws SQLException {
+		String sql = "UPDATE member SET name=?, password=?, email=? WHERE memberid=?";
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getPw());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setString(4, member.getId());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
+	public void delete(Connection con, Member member) throws SQLException {
+		String sql = "DELETE member WHERE memberid=?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getId());
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
 }
