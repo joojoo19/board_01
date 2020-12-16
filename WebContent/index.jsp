@@ -12,38 +12,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<link rel="stylesheet" href="css/custom.css">
-<style type="text/css">
-	.container {
-		margin-top: 10%;
-	}
-	.box-border {
-		border: solid 1px #608df9;
-		margin: 5px;
-		width : 250px;
-		height: 40px;
-	}
-	.btn-submit {
-		background-color: #608df9;
-		border: solid 1px #608df9;
-		color: white;
-		margin: 3px;
-		width : 250px;
-		height: 40px;
-	}
+<link rel="stylesheet" href="custom.css">
 
-</style>
 <title>로그인</title>
 </head>
 <body>
 <u:navbar/>
-<div class="container" align="center">
-<h4 style="margin: 15px">로 그 인</h4>
-<input type="text" name="id" class="box-border" placeholder="아이디"/><br />
-<input type="text" name="pw" class="box-border" placeholder="비밀번호"/><br />
-<button type="submit" class="btn-submit" >로그인</button>
-<p> <a href="findid.do">아이디 찾기</a> <a href="findpw.do">비밀번호 찾기</a> <a href="join.do">회원가입</a> </p>
+	<div class="container">
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="IMG_20190321_122012.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="IMG_20190321_120537.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="1553174654317.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
 
+	</div>
 </body>
 </html>
