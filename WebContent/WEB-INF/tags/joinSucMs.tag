@@ -1,3 +1,4 @@
+<%@tag import="javax.websocket.SendResult"%>
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -31,7 +32,7 @@ else
 					</div>
 					<div class="modal-body"><%= messageContent %></div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href='<%= request.getContextPath()%>/login.do';">확인</button>
 					</div>
 				</div>
 			</div>
@@ -40,9 +41,12 @@ else
 
 	<script>
 		$('#messageModal').modal("show");
+
+
 	</script>
 	<%
 		session.removeAttribute("messageContent");
 	session.removeAttribute("messageType");
 	}
+	
 	%>

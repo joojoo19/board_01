@@ -7,7 +7,14 @@ public class Member {
 	private String name;
 	private String pw;
 	private String email;
+	private Date regDate;
 
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 
 	public String getId() {
 		return id;
@@ -31,7 +38,12 @@ public class Member {
 	public void changePassword(String newPwd) {
 		this.pw = newPwd;
 	}
-
+	public void changeName(String newName) {
+		this.name = newName;
+	}
+	public void changeEmail(String newEmail) {
+		this.email = newEmail;
+	}
 	public void setId(String id) {
 		this.id = id;
 	}

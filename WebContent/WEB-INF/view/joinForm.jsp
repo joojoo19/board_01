@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,68 +10,68 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<style type="text/css">
-	h6 {
-	color: red;
-	}
-	.container {
-		margin-top: 6%;
-	}
-	.box-title {
-		width : 250px;
-		height: 40px;
-		text-align: left;
-		margin-bottom: -12px;
-	}
-	.box-border {
-		border: solid 1px #608df9;
-		margin-bottom: 6px;
-		width : 250px;
-		height: 40px;
-	}
-	.btn-submit {
-		background-color: #608df9;
-		border: solid 1px #608df9;
-		color: white;
-		width : 250px;
-		height: 40px;
-	}
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet" href="css/custom.css">
+<title>회원 가입</title>
 
-</style>
-<script type="text/javascript">
-$("input").focus(function() {
-	$(this).css("border-color", "#608df9"); });
-</script>
-<title>회원가입</title>
 </head>
 <body>
-<div class="container" align="center">
-<h4>회원 가입 양식</h4><br />
-<form action="join.do" method="post">
+<u:navbar/>
+<div class="container">
 
-<div class="box-title"><p>아이디</p></div>
-<input type="text" name="id" value="${param.id }" class="box-border" /><br />
-<c:if test="${errors.id }"><h6>ID를 입력하세요 </h6></c:if>
-<c:if test="${errors.duplicateId }"><h6>이미 사용중인 아이디입니다 </h6></c:if>
+	<div class="row">
+		<div class="col-4">
+		</div>
+		<div class="col-4">
 
-<div class="box-title"><p>비밀번호</p></div>
-<input type="password" name="pw" class="box-border" /><br />
-<c:if test="${errors.pw }"><h6>비밀번호를 입력하세요 </h6></c:if>
-
-<div class="box-title"><p>비밀번호확인</p></div>
-<input type="password" name="confirmPw" class="box-border" /><br />
-<c:if test="${errors.confirmPw }"><h6>비밀번호를 다시 한 번 입력하세요</h6> </c:if>
-<c:if test="${errors.notMatch}"><h6>암호와 확인이 일치하지 않습니다 </h6></c:if>
-
-<div class="box-title"><p>이름</p></div>
-<input type="text" name="name" value="${param.name }" class="box-border" /><br />
-<c:if test="${errors.name }"><h6>이름을 입력하세요</h6> </c:if>
-
-<div class="box-title"><p>이메일</p></div>
-<input type="email" name="email" class="box-border"  value="${param.email }" /><br />
-<c:if test="${errors.email }"><h6>이메일을 입력하세요 </h6><br /></c:if>
-<button type="submit" class="btn-submit" >회원가입</button>
+			<h3>회원가입</h3>
+<br />
+<form action="${root }/join.do" method="post">
+<div class="form-group">
+    <label for="input1-id">아이디</label>
+    <input type="text" class="form-control" name="id" value="${param.id}" id="input1-id" style="border-color: #608df9">
+    <c:if test="${errors.id }">
+    <small class="form-text text-danger">ID를 입력하세요.</small></c:if>
+        <c:if test="${errors.duplicateId }">
+    <small class="form-text text-danger">이미 사용중인 아이디입니다.</small></c:if>
+  </div>
+<div class="form-group">
+    <label for="input2-name">이름</label>
+    <input type="text" class="form-control" name="name" value="${param.name}" id="input2-name" style="border-color: #608df9">
+    <c:if test="${errors.name }"> 
+    <small class="form-text text-danger">이름을 입력하세요.</small></c:if>
+  </div>
+  <div class="form-group">
+    <label for="input3-pw">암호</label>
+    <input type="password" class="form-control" id="input3-pw" name="pw" style="border-color: #608df9">
+    <c:if test="${errors.pw }">
+     <small class="form-text text-danger">암호를 입력하세요.</small></c:if>
+  </div>
+  <div class="form-group">
+    <label for="input4-comfirmPw">암호확인</label>
+    <input type="password" class="form-control" id="input4-comfirmPw" name="confirmPw" style="border-color: #608df9">
+        <c:if test="${errors.confirmPw }">
+     <small class="form-text text-danger">다시 한 번 암호를 입력하세요.</small></c:if>
+             <c:if test="${errors.notMatch }">
+     <small class="form-text text-danger">암호가 일치하지 않습니다.</small></c:if>
+  </div>
+  <div class="form-group">
+    <label for="input5-email">이메일</label>
+    <input type="text" class="form-control" name="email" value="${param.email}" id="input5-email" style="border-color: #608df9">
+    <c:if test="${errors.email }"> 
+    <small class="form-text text-danger">이메일을 입력하세요.</small></c:if>
+  </div>
+  		<div class="text-right">
+  <button type="submit" class="btn btn-primary" style="width: 100%">회원 가입</button></div>
 </form>
+			</div>
+
+		<div class="col-4">
+
+		</div>
+	</div>
+
+
 </div>
 <u:joinSucMs/>
 </body>
