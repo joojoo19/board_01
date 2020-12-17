@@ -50,7 +50,7 @@ public class JoinHandler implements CommandHandler {
 			try {
 				joinService.join(joinReq);
 				req.getSession().setAttribute("messageType", "성공메세지");
-				req.getSession().setAttribute("messageContent", "성공적으로 가입이 되었습니다");
+				req.getSession().setAttribute("messageContent", joinReq.getName()+ "님 가입이 완료되었습니다");
 				return FORM_VIEW;
 			} catch (DuplicateIdException e) {
 				errors.put("duplicateId", true);

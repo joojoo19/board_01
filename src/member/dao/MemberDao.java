@@ -10,6 +10,77 @@ import jdbc.JdbcUtil;
 import member.model.Member;
 
 public class MemberDao {
+	public Member selectByIdNNameNEmail(Connection con, String id, String name, String email) throws SQLException {
+
+		Member member = null;
+
+		String sql = "SELECT memberid, name, password, email, regdate " + "FROM member " + "WHERE memberid=? AND name=? AND email=?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				member = new Member();
+				member.setId(rs.getString(1));
+				member.setName(rs.getString(2));
+				member.setPw(rs.getString(3));
+				member.setEmail(rs.getString(4));
+				member.setRegDate(rs.getTimestamp(5));
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+
+		return member;
+	}
+	
+	public Member selectByNameNEmail(Connection con, String name, String email) throws SQLException {
+
+		Member member = null;
+
+		String sql = "SELECT memberid, name, password, email, regdate " + "FROM member " + "WHERE name=? AND email=?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				member = new Member();
+				member.setId(rs.getString(1));
+				member.setName(rs.getString(2));
+				member.setPw(rs.getString(3));
+				member.setEmail(rs.getString(4));
+				member.setRegDate(rs.getTimestamp(5));
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+
+		return member;
+	}
+
 	public Member selectById(Connection con, String id) throws SQLException {
 
 		Member member = null;

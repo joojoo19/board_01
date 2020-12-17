@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +31,22 @@
 			<div class="col-6">
 				<h3>게시글 읽기</h3>
 				<br />
+				<div class="text-right mb-2">
+											<c:set var="pageNo"
+								value="${empty param.pageNo ? '1' : param.pageNo }" />
+							<a href="${root }/article/list.do?no=${articleData.article.number-1 }"><button
+									type="button" class="btn btn-primary btn-sm">이전글</button></a>
+												<c:set var="pageNo"
+								value="${empty param.pageNo ? '1' : param.pageNo }" />
+							<a href="${root }/article/list.do?no=${articleData.article.number+1}"><button
+									type="button" class="btn btn-primary btn-sm">다음글</button></a></div>
 				<table class="table table-bordered table-sm">
 					<tbody>
 						<tr>
 							<td width="15%">번호</td>
-							<td colspan="3">${articleData.article.number }</td>
+							<td width="35%">${articleData.article.number }</td>
+							<td width="15%">작성일</td>
+							<td width="35%"><fmt:formatDate value="${articleData.article.regDate }" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td>제목</td>
@@ -87,6 +100,6 @@
 
 			</div>
 
-
+</div>
 </body>
 </html>

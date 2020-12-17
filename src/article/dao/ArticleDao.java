@@ -16,6 +16,41 @@ import jdbc.JdbcUtil;
 import member.model.Member;
 
 public class ArticleDao {
+	public Article selectPrePage(Connection con, int no) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT max(article_no) FROM article WHERE article_no > ?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			Article article = null;
+			if (rs.next()) {
+				article = convertArticle(rs);
+			}
+			return article;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+	public Article selectNextPage(Connection con, int no) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT min(article_no) FROM article WHERE article_no > ?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			Article article = null;
+			if (rs.next()) {
+				article = convertArticle(rs);
+			}
+			return article;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+	
 	public int delete(Connection con, int removeNo) throws SQLException {
 		String sql = "DELETE article WHERE article_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {

@@ -38,8 +38,9 @@ private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 	
 	int newArticleNO = writeService.write(writeReq);
 	req.setAttribute("newArticleNo", newArticleNO);
-	
-	return "newArticleSuccess";
+	req.getSession().setAttribute("messageType", "성공메세지");
+	req.getSession().setAttribute("messageContent", "글이 등록되었습니다.");
+	return FORM_VIEW;
 }
 	private WriteRequest createWriteRequest(User user, HttpServletRequest req) {
 		return new WriteRequest(new Writer(user.getId(), user.getName()), req.getParameter("title"), req.getParameter("content"));

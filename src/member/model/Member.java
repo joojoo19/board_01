@@ -34,6 +34,15 @@ public class Member {
 	public boolean matchPassword(String pwd) {
 		return pw.equals(pwd);
 	}
+	public boolean matchName(String name) {
+		return this.name.equals(name);
+	}
+	public boolean matchEmail(String email) {
+		return this.email.equals(email);
+	}
+	public boolean matchId(String id) {
+		return this.id.equals(id);
+	}
 	
 	public void changePassword(String newPwd) {
 		this.pw = newPwd;
