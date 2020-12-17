@@ -14,7 +14,7 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="css/custom.css">
 
-<title>로그인</title>
+<title>joojoo's Home</title>
 </head>
 <body>
 <u:navbar/>
@@ -58,7 +58,7 @@
 	</div>
 
 </div>
-<u:joinSucMs/>
+<u:loginMs/>
 
 </body>
 </html>

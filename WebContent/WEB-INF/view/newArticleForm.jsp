@@ -43,7 +43,8 @@
 
 
 						<div class="text-right">
-							<button type="submit" class="btn btn-primary">글등록</button>
+							<button type="submit" class="btn btn-primary">등록</button>
+								<a href="${root }/article/list.do"><button type="button" class="btn btn-primary">취소</button></a>
 						</div>
 					</form>
 
@@ -54,5 +55,7 @@
 		</div>
 
 	</div>
+	<u:newArticleMs/>
+	<u:copyright/>
 </body>
 </html>

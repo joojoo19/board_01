@@ -46,8 +46,9 @@ public class LoginHandler implements CommandHandler {
 		try {
 			User user = loginService.login(id, pw);
 			req.getSession().setAttribute("authUser", user);  // public은 session으로 받음.
-			res.sendRedirect(req.getContextPath() + "/index.jsp");
-			return null;
+			req.getSession().setAttribute("messageType", "성공메세지");
+			req.getSession().setAttribute("messageContent", user.getName()+"님 반갑습니다.");
+			return FORM_VIEW;
 		} catch (LoginFailException e) {
 			e.printStackTrace();
 			errors.put("pwNotMatch", Boolean.TRUE);

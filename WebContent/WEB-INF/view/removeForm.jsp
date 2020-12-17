@@ -31,7 +31,7 @@
 					<form action="${root }removeMember.do" method="post">
 						<div class="form-group">
 							<label for="input3-pw">암호</label> <input type="password"
-								class="form-control" id="input3-pw" name="pw">
+								class="form-control" id="input3-pw" name="pw" style="border-color: #608df9">
 							<c:if test="${errors.emptyPw }">
 								<small class="form-text text-danger">암호를 입력하세요.</small>
 							</c:if>
@@ -54,5 +54,6 @@
 
 
 	</div>
+	<u:loginMs/>
 </body>
 </html>

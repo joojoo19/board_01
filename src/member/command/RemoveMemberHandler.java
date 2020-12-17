@@ -46,7 +46,9 @@ public class RemoveMemberHandler implements CommandHandler {
 		// 서비스 일시키기
 		try {
 		removMemberSvc.removeMember(user, pw);
-		return "removeSuccess";
+		req.getSession().setAttribute("messageType", "성공메세지");
+		req.getSession().setAttribute("messageContent", user.getName()+ "님 탈퇴가 완료되었습니다.");
+		return FORM_VIEW;
 		// 세션을 invalide시키는
 	
 	} catch (InvalidPasswordException e) {

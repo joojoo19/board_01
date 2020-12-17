@@ -11,6 +11,7 @@ import jdbc.JdbcUtil;
 import oracle.net.aso.c;
 
 public class ArticleContentDao {
+
 	public int delete(Connection con, int removeNo) throws SQLException {
 		String sql = "DELETE article_content WHERE article_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {

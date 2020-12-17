@@ -1,7 +1,10 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +31,10 @@
   <thead>
     <tr>
       <th scope="col" width="10%" class="text-center">번호</th>
-      <th scope="col" width="57%" class="text-center">제목</th>
-      <th scope="col" width="16%" class="text-center">작성자</th>
-      <th scope="col" width="7%" class="text-center">조회수</th>
+      <th scope="col" width="51%" class="text-center">제목</th>
+            <th scope="col" width="16%" class="text-center">작성자</th>
+      <th scope="col" width="16%" class="text-center">작성일</th>
+      <th scope="col" width="7%" class="text-center">조회</th>
     </tr>
   </thead>
   <tbody>
@@ -41,11 +45,16 @@
       <c:out value="${article.title }"/>
 </a></td>
       <td class="text-center">${article.writer.name }</td>
+        <td class="text-center"><fmt:formatDate value="${article.regDate }" pattern="yyyy-MM-dd"/>
+        </td>
       <td class="text-center">${article.readCount }</td>
     </tr>
 </c:forEach>
   </tbody>
 </table>
+<div class="text-right">
+							<a href="${root }/article/write.do"><button type="submit" class="btn btn-primary">글쓰기</button></a>
+						</div>
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
             <c:if test="${articlePage.startPage > 5}">
