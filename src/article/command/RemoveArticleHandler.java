@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import article.service.ArticleContentNotFoundException;
 import article.service.ArticleData;
@@ -13,80 +14,51 @@ import article.service.ArticleNotFoundException;
 import article.service.ModifyRequest;
 import article.service.PermissionDeniedException;
 import article.service.ReadArticleService;
+import article.service.RemoveArticleService;
 import article.service.RemoveArticleService2;
 import auth.service.User;
 import mvc.command.CommandHandler;
 
 public class RemoveArticleHandler implements CommandHandler{
-	private static final String FORM_VIEW = "removeArticleForm";
-	private RemoveArticleService2 removeService = new RemoveArticleService2();
-	private ReadArticleService readService = new ReadArticleService();
 	
+	private ReadArticleService readService = new ReadArticleService();
+	private RemoveArticleService removeArticleService = new RemoveArticleService();
+
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if (req.getMethod().equalsIgnoreCase("GET")) {
-			return processForm(req, res);
-		}
-		else if (req.getMethod().equalsIgnoreCase("POST")) {
-			return processSubmit(req, res);
-		} else {
-			res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 
-			return null;
-		}
-
-	}
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		User authUser = (User) req.getSession().getAttribute("authUser");
-		String noVal = req.getParameter("removeNo");
-		int removeNo = Integer.valueOf(noVal);
-
-		ModifyRequest modReq = new ModifyRequest(authUser.getId(), removeNo, req.getParameter("title"), req.getParameter("content"));
-		req.setAttribute("modReq", modReq);
-		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
-		modReq.validate(errors);
-		if(!errors.isEmpty()) {
-			return FORM_VIEW;
-		}
-		try {
-			removeService.removeArticle(removeNo);
-			return "removeArticleSuccess";
-		} catch (ArticleNotFoundException e) {
-			e.printStackTrace();
-			res.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return null;
-		} catch (PermissionDeniedException e) {
-			e.printStackTrace();
+		// 현재 로그인 한 사용자
+		// 삭제하려는 게시물의 작성자
+		HttpSession session = req.getSession();
+		User authUser = (User) session.getAttribute("authUser");
+		
+		int no = Integer.parseInt(req.getParameter("no"));
+		
+		ArticleData articleData = readService.getArticle(no, false);
+		
+		// 가 같으면 삭제함
+		//    암호가 일치하는 지 확인 해서
+		//           일치하면 삭제
+		//           아니면 throw exception
+		
+		// 안 같으면 throw exception
+		if (!authUser.getId().equals(articleData.getArticle().getWriter().getId())) {
 			res.sendError(HttpServletResponse.SC_FORBIDDEN);
 			return null;
 		}
-	}
-
-	private String processForm(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
 		try {
-			String noVal = req.getParameter("no");
-			int no = Integer.parseInt(noVal);
-			ArticleData articleData = readService.getArticle(no, false);
-			User authUser = (User) req.getSession().getAttribute("authUser"); 
-			if(!canModify(authUser, articleData)) {
-				res.sendError(HttpServletResponse.SC_FORBIDDEN);
-				return null;
-			}
-			ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, articleData.getArticle().getTitle(), articleData.getContent());
-			req.setAttribute("modReq", modReq);
-					return FORM_VIEW;	
-		} catch (ArticleNotFoundException e) {
-			e.printStackTrace();
-			res.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return null;
+			removeArticleService.delete(no, authUser);
+		
+		} catch (PermissionDeniedException e) {
+			errors.put("invalidePassword", true);
+			return "listArticle";
+		}	catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-	
+			return "listArticle";
+		}
 	}
 
-	private boolean canModify(User authUser, ArticleData articleData) {
-		String writerId = articleData.getArticle().getWriter().getId();
-		return authUser.getId().equals(writerId);
-	}
-}

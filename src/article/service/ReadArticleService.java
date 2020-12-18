@@ -20,13 +20,17 @@ public class ReadArticleService {
 				throw new ArticleNotFoundException();
 			}
 			ArticleContent content = contentDao.selectedById(con, articleNum);
+			
+			//  이전, 다음 게시물 번호
+			int preNum = articleDao.selectPrePage(con, articleNum);
+			int nextNum = articleDao.selectNextPage(con, articleNum);
 			if(content == null) {
 				throw new ArticleContentNotFoundException();
 			}
 			if(increaseReadCount) {
 				articleDao.increaseReadCount(con, articleNum);
 			}
-			return new ArticleData(article, content);
+			return new ArticleData(article, content, preNum, nextNum);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

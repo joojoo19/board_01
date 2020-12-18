@@ -16,24 +16,24 @@ import jdbc.JdbcUtil;
 import member.model.Member;
 
 public class ArticleDao {
-	public Article selectPrePage(Connection con, int no) throws SQLException {
+	public int selectPrePage(Connection con, int no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT max(article_no) FROM article WHERE article_no > ?)";
+		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT max(article_no) FROM article WHERE article_no < ?)";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			Article article = null;
+			int result = 0;
 			if (rs.next()) {
-				article = convertArticle(rs);
+				result = rs.getInt(1);
 			}
-			return article;
+			return result;
 		} finally {
 			JdbcUtil.close(rs, pstmt);
 		}
 	}
-	public Article selectNextPage(Connection con, int no) throws SQLException {
+	public int selectNextPage(Connection con, int no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT min(article_no) FROM article WHERE article_no > ?)";
@@ -41,11 +41,11 @@ public class ArticleDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			Article article = null;
+			int result = 0;
 			if (rs.next()) {
-				article = convertArticle(rs);
+				result = rs.getInt(1);
 			}
-			return article;
+			return result;
 		} finally {
 			JdbcUtil.close(rs, pstmt);
 		}

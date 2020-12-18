@@ -48,6 +48,9 @@ public class LoginHandler implements CommandHandler {
 			req.getSession().setAttribute("authUser", user);  // public은 session으로 받음.
 			req.getSession().setAttribute("messageType", "성공메세지");
 			req.getSession().setAttribute("messageContent", user.getName()+"님 반갑습니다.");
+			if(user.getId().equals("admin")) {
+				req.getSession().setAttribute("admin", user);
+			}
 			return FORM_VIEW;
 		} catch (LoginFailException e) {
 			e.printStackTrace();

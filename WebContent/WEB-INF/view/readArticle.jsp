@@ -18,8 +18,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <title>Insert title here</title>
-<style>
-</style>
 </head>
 <body>
 	<u:navbar />
@@ -32,14 +30,24 @@
 				<h3>게시글 읽기</h3>
 				<br />
 				<div class="text-right mb-2">
-											<c:set var="pageNo"
-								value="${empty param.pageNo ? '1' : param.pageNo }" />
-							<a href="${root }/article/list.do?no=${articleData.article.number-1 }"><button
-									type="button" class="btn btn-primary btn-sm">이전글</button></a>
-												<c:set var="pageNo"
-								value="${empty param.pageNo ? '1' : param.pageNo }" />
-							<a href="${root }/article/list.do?no=${articleData.article.number+1}"><button
-									type="button" class="btn btn-primary btn-sm">다음글</button></a></div>
+					
+							<a href="${root }/article/read.do?no=${articleData.prevNumber}"><button
+									type="button" id="btn-prev" class="btn btn-primary btn-sm" 
+									
+									<c:if test="${ articleData.nextNumber eq 0 }">
+										disabled
+									</c:if>
+									
+									>이전글</button></a>
+				
+							<a href="${root }/article/read.do?no=${articleData.nextNumber}"><button
+									type="button" id="btn-next" class="btn btn-primary btn-sm"
+									
+									<c:if test="${ articleData.nextNumber eq 0 }">
+										disabled
+									</c:if>
+									
+									>다음글</button></a></div>
 				<table class="table table-bordered table-sm">
 					<tbody>
 						<tr>
@@ -61,8 +69,8 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-							<div class="form-group m-0">
-							<textarea cols="30" rows="9" class="form-control" name="content">${articleData.content } </textarea>
+							<div style="height: 250px">
+							${articleData.content }
 						</div>
 							</td>
 						
@@ -84,6 +92,7 @@
 										href="${root }/article/modify.do?no=${articleData.article.number }"><button
 											type="submit" class="btn btn-primary">수정</button></a></div>
 											<div class="bd-highlight">
+											<input type="text" name="removeNo" value="${articleData.article.number }" hidden/>
 									<a
 										href="${root }/article/remove.do?no=${articleData.article.number }"><button
 											type="submit" class="btn btn-primary">삭제</button></a></div>

@@ -6,44 +6,38 @@ import java.sql.SQLException;
 import article.dao.ArticleContentDao;
 import article.dao.ArticleDao;
 import article.model.Article;
+import auth.service.User;
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
+import member.dao.MemberDao;
+import member.model.Member;
 
 public class RemoveArticleService {
+	private MemberDao memberDao = new MemberDao();
 	private ArticleDao articleDao = new ArticleDao();
-	private ArticleContentDao contentDao = new ArticleContentDao();
-	
-	public void remove(ModifyRequest modReq) {
-		Connection con = null;
+	private ArticleContentDao articleContentDao = new ArticleContentDao();
+
+	public void delete(int no, User authUser) {
+
+		Connection con = ConnectionProvider.getConnection();
 		try {
-			con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
+			Member member = memberDao.selectById(con, authUser.getId());
 			
-			Article article = articleDao.selectById(con, modReq.getArticleNumber());
-			if(article == null) {
-				throw new ArticleNotFoundException();
-			}
-			if(!canModify(modReq.getUserId(), article)) {
+			// 같지 않으면 throw exception
+			if (!member.getId().equals(authUser.getId())) {
 				throw new PermissionDeniedException();
 			}
-			articleDao.delete(con, modReq.getArticleNumber());
-			contentDao.delete(con, modReq.getArticleNumber());
 			
+			// password와 사용자의 비번이 같으면
+			//   articleDao.delete, articleContentDao.delete
+			articleDao.delete(con, no);
+			articleContentDao.delete(con, no);
 			con.commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			JdbcUtil.rollback(con);
 			throw new RuntimeException(e);
-		} catch (PermissionDeniedException e) {
-			e.printStackTrace();
-			JdbcUtil.rollback(con);
-			throw e;
-		} finally {
-			JdbcUtil.close(con);
 		}
-	}
-
-	private boolean canModify(String modfyingUserId, Article article) {
-		return article.getWriter().getId().equals(modfyingUserId);
+		
 	}
 }
