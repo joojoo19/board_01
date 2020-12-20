@@ -20,27 +20,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<u:navbar />
+
 
 <div class="container">
-<h3>게시글 삭제</h3>
-<br />
-<form action="remove.do" method="POST">
-<p>
-<input type="hidden" name="removeNo" value="${modReq.articleNumber}">
-번호 : ${modReq.articleNumber}
-</p>
-<p>
-제목 : <br />
-<input type="text" name="title" value="${modReq.title}" />
-<c:if test="${errors.title }">제목을 입력하세요</c:if>
-</p>
-<p>
-내용 : <br />
-<textarea name="content" cols="30" rows="5" wrap="hard">${modReq.content }</textarea>
-</p>
-  <button class="btn btn-danger" id="btn-remove" name="removeNo" value="${modReq.articleNumber}">삭제</button>
+<div class="row">
+	<div class="col-3"></div>
+	<div class="col-6">
+	<form action="${root }/article/remove.do" method="POST">
+   <input type="text" name="no" id="" value="${param.no }" hidden/>
+   <div style="height: 200px"></div>
+   <div style="border: 1px solid gray; height: 200px">
+	<div style="text-align: center" class="mt-5">
+       <h4 style="align: center">삭제 하시겠습니까?</h4>
+       <br />
+        <button type="submit" class="btn btn-primary">확인</button>
+         <a href="${root }/article/read.do?no=${param.no }"><button type="button" class="btn btn-secondary">취소</button></a>
+	</div></div>
 </form>
+	</div>
+	<div class="col-3"></div>
+</div>
+
 </div>
 </body>
 </html>
