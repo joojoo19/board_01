@@ -14,6 +14,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:forward page="read.do?no=${article.number}&pageNo=${articlePage.currentPage }"/>
+<jsp:forward page="${root }/article/read.do?no=${article.number}&pageNo=${articlePage.currentPage }"/>
 </body>
 </html>

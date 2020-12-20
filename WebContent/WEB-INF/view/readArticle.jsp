@@ -34,7 +34,7 @@
 							<a href="${root }/article/read.do?no=${articleData.prevNumber}"><button
 									type="button" id="btn-prev" class="btn btn-primary btn-sm" 
 									
-									<c:if test="${ articleData.nextNumber eq 0 }">
+									<c:if test="${ articleData.prevNumber eq 0 }">
 										disabled
 									</c:if>
 									
