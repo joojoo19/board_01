@@ -55,7 +55,9 @@ public class ChangePasswordHandler implements CommandHandler {
 		
 		try {
 			changePwdSvc.changePassword(user.getId(), curPwd, newPwd);
-			return "changePwdSuccess";
+			req.getSession().setAttribute("messageType", "성공메세지");
+			req.getSession().setAttribute("messageContent", "비밀번호가 변경되었습니다");
+			return FORM_VIEW;
 		} catch (InvalidPasswordException e) {
 			errors.put("badCurPwd", true);
 			return FORM_VIEW;
