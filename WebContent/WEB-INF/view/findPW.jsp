@@ -26,6 +26,7 @@
 		<h3>비밀번호찾기</h3>
 	<br />
 <form action="${root }/findpw.do" method="post">
+<u:alertMessage/>
 <div class="form-group">
     <label for="input1-id">아이디</label>
     <input type="text" class="form-control" name="id" value="${param.id}" id="input1-id" style="border-color: #608df9">
@@ -58,7 +59,6 @@
 	<div class="col-4">
 
 	</div>
-<u:findIdMs/>
 </div>
 </body>
 </html>

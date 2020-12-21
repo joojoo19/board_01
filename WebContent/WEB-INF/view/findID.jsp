@@ -26,6 +26,8 @@
 		<h3>아이디찾기</h3>
 	<br />
 <form action="${root }/findid.do" method="post">
+
+<u:alertMessage/>
 <div class="form-group">
     <label for="input1-name">이름</label>
     <input type="text" class="form-control" name="name" value="${param.name}" id="input1-name" style="border-color: #608df9">
@@ -54,7 +56,7 @@
 	<div class="col-4">
 
 	</div>
-<u:findIdMs/>
+
 </div>
 </body>
 </html>
