@@ -59,7 +59,7 @@ public class FindPasswordHandler implements CommandHandler {
 			} catch (MemberNotFoundException e) {
 				e.printStackTrace();
 				req.getSession().setAttribute("messageType", "오류메세지");
-				req.getSession().setAttribute("messageContent", "회원이 아닙니다. 회원 가입를 해주세요");
+				req.getSession().setAttribute("messageContent", "비밀번호를 찾을 수 없습니다.");
 				return FORM_VIEW;
 			}
 		
