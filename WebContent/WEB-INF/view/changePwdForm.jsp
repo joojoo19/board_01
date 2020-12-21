@@ -23,6 +23,7 @@
 			<h3>암호변경</h3>
 			<br />
 <form action="${root }/changePwd.do" method="post">
+<u:alertMessage/>
  <div class="form-group">
     <label for="input3-pw">현재 암호</label>
     <input type="password" class="form-control" id="input3-pw" name="curPwd" style="border-color: #608df9">

@@ -13,19 +13,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="css/custom.css">
-<style>
-body {
-  background-image: url('OIP.jpg');
-  background-repeat: no-repeat;
-}
-</style>
-<title>라이프 온 마스</title>
+
+<title>joojoo's Home</title>
 </head>
 <body>
 <u:navbar/>
-	<div class="container">
-
-	</div>
-	<u:copyright/>
+<div class="container">
+<div class="row">
+	<div class="col-4"></div>
+	<div class="col-4"></div>
+	<div class="col-4"></div>
+</div>
+</div>
+<u:copyright/>
 </body>
 </html>
