@@ -65,7 +65,7 @@ a:active {
       <th scope="row" class="text-center">${article.number }</th>
       <td><a href="read.do?no=${article.number}&pageNo=${articlePage.currentPage }">
       <c:out value="${article.title }"/>
-</a></td>
+</a>&nbsp;[${article.replyCount }]</td>
       <td class="text-center">${article.writer.name }</td>
         <td class="text-center"><fmt:formatDate value="${article.regDate }" pattern="yyyy-MM-dd"/>
         </td>

@@ -114,9 +114,9 @@ public class ArticleDao {
 	public List<Article> select(Connection con, int pageNum, int size) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = " SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt "
-				+ "FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, ROW_NUMBER() "
-				+ "OVER (ORDER BY article_no DESC) rn FROM article) " + " WHERE rn Between ? and ?"; // sql develop은
+		String sql = " SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
+				+ "FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
+				+ "OVER (ORDER BY article_no DESC) rn FROM article_view) " + " WHERE rn Between ? and ?"; // sql develop은
 																										// 1베이스
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -137,7 +137,7 @@ public class ArticleDao {
 
 	private Article convertArticle(ResultSet rs) throws SQLException {
 		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
-				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"));
+				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"), rs.getInt("reply_cnt"));
 
 	}
 

@@ -13,17 +13,43 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="css/custom.css">
-<style>
-body {
-  background-image: url('OIP.jpg');
-  background-repeat: no-repeat;
-}
-</style>
-<title>라이프 온 마스</title>
+
+<title>joojoo's Home</title>
 </head>
 <body>
 <u:navbar/>
 	<div class="container">
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="IMG_20190321_122012.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="DSCF3939.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="DSCF1425.jpg" class="d-block w-100" alt="...">
+    </div>
+            <div class="carousel-item">
+      <img src="DSCF3928.jpg" class="d-block w-100" alt="...">
+    </div>
+        <div class="carousel-item">
+      <img src="DSCF1829.jpg" class="d-block w-100" alt="...">
+    </div>
+            <div class="carousel-item">
+      <img src="DSCF2209.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
 	</div>
 	<u:copyright/>
