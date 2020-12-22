@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div>
 
@@ -14,8 +15,28 @@
 		<c:forEach items="${replyList }" var="reply">
 			<tbody>
 				<tr>
-									<td class="text-center">${reply.memberId }</td>
-					<td colspan="3" width="85%">${reply.body }</td>
+					<td rowspan="2" class="text-center">${reply.memberId }</td>
+					<td rowspan="2" colspan="3" width="85%">${reply.body }</td>
+
+				</tr>
+				<tr>
+					<td colspan="2" class="text-right">
+					<div class="d-flex justify-content-end"><fmt:formatDate
+							value="${reply.regDate }" pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;
+				<c:if test="${authUser.id == reply.memberId }">
+				
+							<div class="pr-1 bd-highlight">
+								<a href="${root }/replyModify.do?no=${reply.id }">수정</a>
+							</div>
+
+
+							<div class="bd-highlight">
+								<a href="${root }/replyRemove.do?no=${reply.id }">
+								삭제
+								</a>
+							</div></c:if>
+</div>
+						</td>
 
 				</tr>
 			</tbody>

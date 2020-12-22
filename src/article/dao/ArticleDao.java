@@ -60,7 +60,7 @@ public class ArticleDao {
 	}
 	
 	public int update(Connection con, int no, String title) throws SQLException {
-		String sql = "UPDATE article SET title = ?, moddate = SYSDATE WHERE article_no = ?";
+		String sql = "UPDATE article SET title = ?, regdate = SYSDATE WHERE article_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, title);
 			pstmt.setInt(2, no);
@@ -126,7 +126,7 @@ public class ArticleDao {
 			rs = pstmt.executeQuery();
 			List<Article> result = new ArrayList<>();
 			while (rs.next()) {
-				result.add(convertArticle(rs));
+				result.add(convertArticleReply(rs));
 			}
 			return result;
 		} finally {
@@ -137,10 +137,14 @@ public class ArticleDao {
 
 	private Article convertArticle(ResultSet rs) throws SQLException {
 		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
+				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"));
+
+	}
+	private Article convertArticleReply(ResultSet rs) throws SQLException {
+		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
 				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"), rs.getInt("reply_cnt"));
 
 	}
-
 	public Article insert(Connection con, Article article) throws SQLException {
 		String sql = "INSERT INTO article " + "(writer_id, writer_name, title," + " regdate, moddate, read_cnt) "
 				+ "VALUES (?, ?, ?, SYSDATE, SYSDATE, 0)";
