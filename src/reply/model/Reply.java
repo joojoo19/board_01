@@ -8,6 +8,7 @@ public class Reply {
 	private int articleNum;
 	private String body;
 	private Date regDate;
+	private Date modDate;
 	
 	public int getId() {
 		return id;
@@ -39,7 +40,11 @@ public class Reply {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	
-	
+	public Date getModDate() {
+		return modDate;
+	}
+	public void setModDate(Date modDate) {
+		this.modDate = modDate;
+	}
 
 }

@@ -20,8 +20,8 @@ public class ReplyDao {
 		*/
 		
 		String sql = "INSERT INTO reply "
-				+ "(memberid, article_no, body, regdate) "
-				+ "VALUES (?, ?, ?, SYSDATE)";
+				+ "(memberid, article_no, body, regdate, moddate) "
+				+ "VALUES (?, ?, ?, SYSDATE, SYSDATE)";
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, userId);
@@ -37,7 +37,7 @@ public class ReplyDao {
 				+ " memberid,"
 				+ " article_no,"
 				+ " body,"
-				+ " regdate " + 
+				+ " regdate, moddate " + 
 				"FROM reply " + 
 				"WHERE article_no=? " + 
 				"ORDER BY replyid DESC";
@@ -54,6 +54,7 @@ public class ReplyDao {
 				r.setArticleNum(rs.getInt(3));
 				r.setBody(rs.getString(4));
 				r.setRegDate(rs.getTimestamp(5));
+				r.setModDate(rs.getTimestamp(6));
 				
 				list.add(r);
 			}
