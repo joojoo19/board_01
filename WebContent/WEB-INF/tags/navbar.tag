@@ -14,8 +14,11 @@
       <li class="nav-item">
         <a class="nav-link" href="${root }/index.jsp"><i class="fas fa-home"></i>&nbsp;Home <span class="sr-only">(current)</span></a>
       </li>
+        <li class="nav-item">
+        <a class="nav-link" href="${root }/notice/list.do"><i class="fas fa-bars"></i>&nbsp;Notice</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="${root }/article/list.do"><i class="fas fa-bars"></i>&nbsp;Board</a>
+        <a class="nav-link" href="${root }/article/list.do"><i class="fas fa-edit"></i>&nbsp;Board</a>
       </li>
 
    </ul>

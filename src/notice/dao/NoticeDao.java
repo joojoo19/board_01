@@ -1,4 +1,4 @@
-package article.dao;
+package notice.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,15 +11,16 @@ import java.util.Date;
 import java.util.List;
 
 import article.model.Article;
-import article.model.Writer;
+import notice.model.Notice;
+import notice.model.Writer;
 import jdbc.JdbcUtil;
 import member.model.Member;
 
-public class ArticleDao {
+public class NoticeDao {
 	public int selectPrePage(Connection con, int no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT max(article_no) FROM article WHERE article_no < ?)";
+		String sql = "SELECT notice_no FROM notice WHERE notice_no = (SELECT max(notice_no) FROM notice WHERE notice_no < ?)";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
@@ -36,7 +37,7 @@ public class ArticleDao {
 	public int selectNextPage(Connection con, int no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT article_no FROM article WHERE article_no = (SELECT min(article_no) FROM article WHERE article_no > ?)";
+		String sql = "SELECT notice_no FROM notice WHERE notice_no = (SELECT min(notice_no) FROM notice WHERE notice_no > ?)";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
@@ -52,7 +53,7 @@ public class ArticleDao {
 	}
 	
 	public int delete(Connection con, int removeNo) throws SQLException {
-		String sql = "DELETE article WHERE article_no = ?";
+		String sql = "DELETE notice WHERE notice_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, removeNo);
 			return pstmt.executeUpdate();
@@ -60,7 +61,7 @@ public class ArticleDao {
 	}
 	
 	public int update(Connection con, int no, String title) throws SQLException {
-		String sql = "UPDATE article SET title = ?, regdate = SYSDATE WHERE article_no = ?";
+		String sql = "UPDATE notice SET title = ?, moddate = SYSDATE WHERE notice_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, title);
 			pstmt.setInt(2, no);
@@ -68,19 +69,19 @@ public class ArticleDao {
 		}
 	}
 
-	public Article selectById(Connection con, int no) throws SQLException {
+	public Notice selectById(Connection con, int no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM article WHERE article_no = ?";
+		String sql = "SELECT * FROM notice WHERE notice_no = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
-			Article article = null;
+			Notice notice = null;
 			if (rs.next()) {
-				article = convertArticle(rs);
+				notice = convertNotice(rs);
 			}
-			return article;
+			return notice;
 		} finally {
 			JdbcUtil.close(rs, pstmt);
 		}
@@ -88,7 +89,7 @@ public class ArticleDao {
 	}
 
 	public void increaseReadCount(Connection con, int no) throws SQLException {
-		String sql = "UPDATE article SET read_cnt = read_cnt + 1 WHERE article_no = ?";
+		String sql = "UPDATE notice SET read_cnt = read_cnt + 1 WHERE notice_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, no);
 			pstmt.executeUpdate();
@@ -100,7 +101,7 @@ public class ArticleDao {
 		ResultSet rs = null;
 		try {
 			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT COUNT(*) FROM article");
+			rs = stmt.executeQuery("SELECT COUNT(*) FROM notice");
 			if (rs.next()) {
 				return rs.getInt(1);
 			}
@@ -111,22 +112,22 @@ public class ArticleDao {
 		}
 	}
 
-	public List<Article> select(Connection con, int pageNum, int size) throws SQLException {
+	public List<Notice> select(Connection con, int pageNum, int size) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = " SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
-				+ "FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
-				+ "OVER (ORDER BY article_no DESC) rn FROM article_view) " + " WHERE rn Between ? and ?"; // sql develop은
-																										// 1베이스
+		String sql = " SELECT rn, notice_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
+				+ "FROM (SELECT notice_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
+				+ "OVER (ORDER BY notice_no DESC) rn FROM notice_view) " + " WHERE rn Between ? and ?"; // sql develop��
+																										// 1踰좎씠�뒪
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, (pageNum - 1) * size + 1); // 1 5 : 1 ~ 5 ...... x n : (x-1)*n +1 ~ x*n
 			pstmt.setInt(2, pageNum * size);
 
 			rs = pstmt.executeQuery();
-			List<Article> result = new ArrayList<>();
+			List<Notice> result = new ArrayList<>();
 			while (rs.next()) {
-				result.add(convertArticleReply(rs));
+				result.add(convertNoticeReply(rs));
 			}
 			return result;
 		} finally {
@@ -135,28 +136,28 @@ public class ArticleDao {
 		}
 	}
 
-	private Article convertArticle(ResultSet rs) throws SQLException {
-		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
+	private Notice convertNotice(ResultSet rs) throws SQLException {
+		return new Notice(rs.getInt("notice_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
 				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"));
 
 	}
-	private Article convertArticleReply(ResultSet rs) throws SQLException {
-		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
+	private Notice convertNoticeReply(ResultSet rs) throws SQLException {
+		return new Notice(rs.getInt("notice_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
 				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"), rs.getInt("reply_cnt"));
 
 	}
-	public Article insert(Connection con, Article article) throws SQLException {
-		String sql = "INSERT INTO article " + "(writer_id, writer_name, title," + " regdate, moddate, read_cnt) "
+	public Notice insert(Connection con, Notice notice) throws SQLException {
+		String sql = "INSERT INTO notice " + "(writer_id, writer_name, title," + " regdate, moddate, read_cnt) "
 				+ "VALUES (?, ?, ?, SYSDATE, SYSDATE, 0)";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = con.prepareStatement(sql, new String[] { "article_no", "regdate", "moddate" });
+			pstmt = con.prepareStatement(sql, new String[] { "notice_no", "regdate", "moddate" });
 
-			pstmt.setString(1, article.getWriter().getId());
-			pstmt.setString(2, article.getWriter().getName());
-			pstmt.setString(3, article.getTitle());
+			pstmt.setString(1, notice.getWriter().getId());
+			pstmt.setString(2, notice.getWriter().getName());
+			pstmt.setString(3, notice.getTitle());
 
 			int cnt = pstmt.executeUpdate();
 
@@ -170,7 +171,7 @@ public class ArticleDao {
 					regDate = rs.getTimestamp(2);
 					modDate = rs.getTimestamp(3);
 				}
-				return new Article(key, article.getWriter(), article.getTitle(), regDate, modDate, 0);
+				return new Notice(key, notice.getWriter(), notice.getTitle(), regDate, modDate, 0);
 			} else {
 				return null;
 			}

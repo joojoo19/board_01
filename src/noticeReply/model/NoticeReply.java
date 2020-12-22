@@ -1,11 +1,11 @@
-package reply.model;
+package noticeReply.model;
 
 import java.util.Date;
 
-public class Reply {
+public class NoticeReply {
 	private int id;
 	private String memberId;
-	private int articleNum;
+	private int noticeNum;
 	private String body;
 	private Date regDate;
 	private Date modDate;
@@ -23,10 +23,10 @@ public class Reply {
 		this.memberId = memberId;
 	}
 	public int getArticleNum() {
-		return articleNum;
+		return noticeNum;
 	}
 	public void setArticleNum(int articleNum) {
-		this.articleNum = articleNum;
+		this.noticeNum = articleNum;
 	}
 	public String getBody() {
 		return body;
@@ -46,5 +46,6 @@ public class Reply {
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
 	}
+	
 
 }
