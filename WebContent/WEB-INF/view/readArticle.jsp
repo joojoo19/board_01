@@ -51,16 +51,17 @@
 							<td width="35%">${articleData.article.number }</td>
 							<td width="15%">작성일</td>
 							<td width="35%"><fmt:formatDate
-									value="${articleData.article.regDate }" pattern="yyyy-MM-dd" /></td>
+									value="${articleData.article.regDate }" pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
+
 						<tr>
-							<td>제목</td>
-							<td colspan="3"><c:out value="${articleData.article.title }"></c:out></td>
+							<td width="15%">작성자</td>
+							<td width="35%">${articleData.article.writer.name }</td>
+								<td width="15%">수정일</td>
+							<td width="35%"><fmt:formatDate
+									value="${articleData.article.regDate }" pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
-						<tr>
-							<td>작성자</td>
-							<td colspan="3">${articleData.article.writer.name }</td>
-						</tr>
+						
 						<tr>
 							<td colspan="4" class="text-center">내용</td>
 						</tr>
@@ -99,11 +100,11 @@
 					</c:if>
 				</div>
 				<hr />
+				<u:listReply />
+				<hr />
 				<div class="mb-3">
 					<u:replyForm articleNo="${articleData.article.number }" />
 				</div>
-				<u:listReply />
-
 				<div class="col-3"></div>
 			</div>
 

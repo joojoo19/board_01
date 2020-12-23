@@ -55,7 +55,7 @@
 		</div>
 
 	</div>
-	<u:newArticleMs/>
+	<u:newNoticeMs/>
 	<u:copyright/>
 </body>
 </html>

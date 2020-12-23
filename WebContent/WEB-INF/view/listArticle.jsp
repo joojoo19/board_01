@@ -112,17 +112,17 @@ a:active {
 						<a href="${root }/article/write.do"><button type="submit"
 								class="btn btn-primary">글쓰기</button></a>
 					</div>
-
+				<div >
 					<form action="">
 						<select name="search" id="">
 							<option>검색</option>
 							<option value="title">제목</option>
 							<option value="content">내용</option>
-							<option value="name">글쓴이</option>
+							<option value="name">작성자</option>
 						</select><input type="text" name="keyword" />
 						<button type="submit" class="btn btn-primary btn-sm mb-1">검색</button>
 					</form>
-
+				</div>
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<c:if test="${articlePage.startPage > 5}">

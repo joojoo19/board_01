@@ -40,7 +40,6 @@ public class ModifyNoticeHandler implements CommandHandler {
 		User authUser = (User) req.getSession().getAttribute("admin");
 		String noVal = req.getParameter("no");
 		int no = Integer.valueOf(noVal);
-		int pageNum = Integer.valueOf(req.getParameter("pageNo"));
 
 		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, req.getParameter("title"), req.getParameter("content"));
 		req.setAttribute("modReq", modReq);
@@ -53,7 +52,7 @@ public class ModifyNoticeHandler implements CommandHandler {
 		}
 		try {
 			modifyService.modify(modReq);
-			res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + no +"&page=" + pageNum);
+			res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + no);
 			return null;
 		} catch (NoticeNotFoundException e) {
 			e.printStackTrace();

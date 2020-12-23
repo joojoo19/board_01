@@ -26,7 +26,7 @@
 <div class="row">
 	<div class="col-3"></div>
 	<div class="col-6">
-	<form action="${root }/article/remove.do" method="POST">
+	<form action="${root }/notice/remove.do" method="POST">
    <input type="text" name="no" id="" value="${param.no }" hidden/>
    <div style="height: 200px"></div>
    <div style="border: 1px solid gray; height: 200px">
@@ -34,7 +34,7 @@
        <h4 style="align: center">삭제 하시겠습니까?</h4>
        <br />
         <button type="submit" class="btn btn-primary">확인</button>
-         <a href="${root }/article/read.do?no=${param.no }"><button type="button" class="btn btn-secondary">취소</button></a>
+         <a href="${root }/notice/read.do?no=${param.no }"><button type="button" class="btn btn-secondary">취소</button></a>
 	</div></div>
 </form>
 	</div>
