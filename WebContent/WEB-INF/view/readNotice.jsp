@@ -51,18 +51,22 @@
 							<td width="35%">${noticeData.notice.number }</td>
 							<td width="15%">작성일</td>
 							<td width="35%"><fmt:formatDate
-									value="${noticeData.notice.regDate }" pattern="yyyy-MM-dd" /></td>
+									value="${noticeData.notice.regDate }" pattern="yyyy-MM-dd  hh:mm" /></td>
+						</tr>
+						
+						<tr>
+							<td width="15%">작성자</td>
+							<td width="35%">${noticeData.notice.writer.name }</td>
+														<td width="15%">수정일</td>
+							<td width="35%"><fmt:formatDate
+									value="${noticeData.notice.modDate }" pattern="yyyy-MM-dd  hh:mm" /></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="text-center">내용</td>
 						</tr>
 						<tr>
 							<td>제목</td>
 							<td colspan="3"><c:out value="${noticeData.notice.title }"></c:out></td>
-						</tr>
-						<tr>
-							<td>작성자</td>
-							<td colspan="3">${noticeData.notice.writer.name }</td>
-						</tr>
-						<tr>
-							<td colspan="4" class="text-center">내용</td>
 						</tr>
 						<tr>
 							<td colspan="4">
@@ -82,7 +86,7 @@
 								type="submit" class="btn btn-primary">목록</button></a>
 					</div>
 
-					<c:if test="${authUser.id == articleData.article.writer.id }">
+					<c:if test="${authUser.id == noticeData.notice.writer.id }">
 						<div class="pr-1 bd-highlight">
 							<a
 								href="${root }/notice/modify.do?no=${noticeData.notice.number }"><button

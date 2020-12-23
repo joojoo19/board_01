@@ -7,9 +7,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdbc.JdbcUtil;
+import notice.model.Notice;
+import notice.model.Writer;
 import reply.model.Reply;
 
 public class ReplyDao {
+	public int delete(Connection con, int no) throws SQLException {
+		String sql = "DELETE reply WHERE replyid = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, no);
+			return pstmt.executeUpdate();
+		}
+	}
+	
+	public int update(Connection con, int no, String body) throws SQLException {
+		String sql = "UPDATE reply SET body = ?, regdate = SYSDATE WHERE replyid = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, body);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
+		}
+	}
+
+	
 
 	public void insert(Connection conn, String userId, int articleNo, String body) throws SQLException {
 		// 11g
@@ -61,5 +82,27 @@ public class ReplyDao {
 		}
 		return list;
 	}
-	
+
+	public Reply selectById(Connection con, String id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM reply WHERE memberid = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			Reply reply = null;
+			if (rs.next()) {
+				reply = convertReply(rs);
+			}
+			return reply;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+
+	}
+	private Reply convertReply(ResultSet rs) throws SQLException {
+		return new Reply(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getTimestamp(5));
+
+	}
 }

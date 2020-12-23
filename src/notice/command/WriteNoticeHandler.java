@@ -33,7 +33,10 @@ private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 	User user = (User) req.getSession(false).getAttribute("admin");
 	WriteRequest writeReq = createWriteRequest(user, req);
 	writeReq.validate(errors);
-	
+	if(!user.getId().equals("admin")) {
+		req.getSession().setAttribute("messageType", "에러메세지");
+		req.getSession().setAttribute("messageContent", "권한이 없습니다");
+	}
 	if(!errors.isEmpty()) {
 		return FORM_VIEW;
 	}

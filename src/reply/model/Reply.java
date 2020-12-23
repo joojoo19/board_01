@@ -1,5 +1,6 @@
 package reply.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Reply {
@@ -10,6 +11,20 @@ public class Reply {
 	private Date regDate;
 	private Date modDate;
 	
+
+	public Reply(int id, String memberId, int articleNum, String body, Date regDate) {
+		this.id = id;
+		this.memberId = memberId;
+		this.articleNum = articleNum;
+		this.body = body;
+		this.regDate = regDate;
+	}
+
+
+	public Reply() {
+
+	}
+
 	public int getId() {
 		return id;
 	}

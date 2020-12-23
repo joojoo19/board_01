@@ -7,26 +7,26 @@ public class Notice {
 	private Writer writer;
 	private String title;
 	private Date regDate;
-	private Date modifiedDate;
+	private Date modDate;
 	private int readCount;
 	private int replyCount;
 
-	public Notice(Integer number, Writer writer, String title, Date regDate, Date modifiedDate, int readCount) {
+	public Notice(Integer number, Writer writer, String title, Date regDate, Date modDate, int readCount) {
 		this.number = number;
 		this.writer = writer;
 		this.title = title;
 		this.regDate = regDate;
-		this.modifiedDate = modifiedDate;
+		this.modDate = modDate;
 		this.readCount = readCount;
 	}
 
-	public Notice(Integer number, Writer writer, String title, Date regDate, Date modifiedDate, int readCount,
+	public Notice(Integer number, Writer writer, String title, Date regDate, Date modDate, int readCount,
 			int replyCount) {
 		this.number = number;
 		this.writer = writer;
 		this.title = title;
 		this.regDate = regDate;
-		this.modifiedDate = modifiedDate;
+		this.modDate = modDate;
 		this.readCount = readCount;
 		this.replyCount = replyCount;
 	}
@@ -48,7 +48,7 @@ public class Notice {
 	}
 
 	public Date getModifiedDate() {
-		return modifiedDate;
+		return modDate;
 	}
 
 	public int getReadCount() {
@@ -59,4 +59,7 @@ public class Notice {
 		return replyCount;
 	}
 
+	public Date getModDate() {
+		return modDate;
+	}
 }

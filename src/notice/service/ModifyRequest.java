@@ -46,9 +46,8 @@ public class ModifyRequest {
 	
 	public void validate(Map<String, Boolean> errors) {
 		if(title == null || title.trim().isEmpty()) {
-			errors.put("title0", Boolean.TRUE);
+			errors.put("title", Boolean.TRUE);
 		}
 	}
-	
 	
 }

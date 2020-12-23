@@ -74,24 +74,26 @@ a:active {
 </c:forEach>
   </tbody>
 </table>
+<c:if test="${authUser.id == 'admin' }">
 <div class="text-right">
 							<a href="${root }/notice/write.do"><button type="submit" class="btn btn-primary">글쓰기</button></a>
 						</div>
-						
+						</c:if>
+						<div class="mt-5">
 						<form action="">
 						<select name="search" id="">
 						<option>검색</option>
 						<option value="title">제목</option>
 						<option value="content">내용</option>
-						<option value="name">글쓴이</option>
+						<option value="name">작성자</option>
 						</select><input type="text" name="keyword"/>
 						<button type="submit" class="btn btn-primary btn-sm mb-1" >검색</button>
 						</form>
-						
+						</div>
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
             <c:if test="${noticePage.startPage > 5}">
-              <li class="page-item"><a class="page-link" href="${root }/notice/list.do?pageNo=${noticePage.startPage - 5 }">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="${root }/notice/list.do?pageNo=${noticePage.startPage - 5 }"><i class="fas fa-angle-double-left"></i></a></li>
             </c:if>
             
             <c:forEach begin="${noticePage.startPage }" end="${noticePage.endPage }" var="pNo">
@@ -99,7 +101,7 @@ a:active {
             
             </c:forEach>
             <c:if test="${noticePage.endPage < noticePage.totalPages }">
-              <li class="page-item"><a class="page-link" href="${root }/notice/list.do?pageNo=${noticePage.startPage + 5 }">Next</a></li>
+              <li class="page-item"><a class="page-link" href="${root }/notice/list.do?pageNo=${noticePage.startPage + 5 }"><i class="fas fa-angle-double-right"></i></a></li>
             </c:if>
           </ul>
         </nav>
