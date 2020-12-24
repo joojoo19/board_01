@@ -9,6 +9,7 @@ public class NoticeReply {
 	private String body;
 	private Date regDate;
 	private Date modDate;
+	private int count;
 	
 	public NoticeReply(int id, String memberId, int noticeNum, String body, Date regDate) {
 		this.id = id;
@@ -32,11 +33,11 @@ public class NoticeReply {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public int getArticleNum() {
+	public int getNotideNum() {
 		return noticeNum;
 	}
-	public void setArticleNum(int articleNum) {
-		this.noticeNum = articleNum;
+	public void setNoticeNum(int noticeNum) {
+		this.noticeNum = noticeNum;
 	}
 	public String getBody() {
 		return body;
@@ -55,6 +56,18 @@ public class NoticeReply {
 	}
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
+	}
+	/**
+	 * @return the count
+	 */
+	public int getCount() {
+		return count;
+	}
+	/**
+	 * @param count the count to set
+	 */
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 

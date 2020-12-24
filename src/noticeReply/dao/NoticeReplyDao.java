@@ -56,7 +56,7 @@ public class NoticeReplyDao {
 				+ " memberid,"
 				+ " notice_no,"
 				+ " body,"
-				+ " regdate, moddate " + 
+				+ " regdate, moddate, ROWNUM " + 
 				"FROM notice_reply " + 
 				"WHERE notice_no=? " + 
 				"ORDER BY replyid";
@@ -70,10 +70,11 @@ public class NoticeReplyDao {
 				NoticeReply r = new NoticeReply();
 				r.setId(rs.getInt(1));
 				r.setMemberId(rs.getString(2));
-				r.setArticleNum(rs.getInt(3));
+				r.setNoticeNum(rs.getInt(3));
 				r.setBody(rs.getString(4));
 				r.setRegDate(rs.getTimestamp(5));
 				r.setRegDate(rs.getTimestamp(6));
+				r.setCount(rs.getInt(7));
 				
 				list.add(r);
 			}
