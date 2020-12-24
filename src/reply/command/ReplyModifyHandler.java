@@ -29,8 +29,7 @@ public class ReplyModifyHandler implements CommandHandler {
 		System.out.println(articleNo);
 		String body = req.getParameter("body");
 		System.out.println(body);
-		int pageNo = Integer.valueOf(req.getParameter("pageNo"));
-		System.out.println(pageNo);
+
 		
 
 		

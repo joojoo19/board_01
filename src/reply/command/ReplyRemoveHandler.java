@@ -23,8 +23,7 @@ public class ReplyRemoveHandler implements CommandHandler {
 		System.out.println(no);
 		int articleNo = Integer.valueOf(req.getParameter("no"));
 		System.out.println(articleNo);
-		int pageNo = Integer.valueOf(req.getParameter("pageNo"));
-		System.out.println(pageNo);
+
 
 		
 		Map<String, Boolean> errors = new HashMap<>();

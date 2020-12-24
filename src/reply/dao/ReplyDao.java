@@ -61,7 +61,7 @@ public class ReplyDao {
 				+ " regdate, moddate " + 
 				"FROM reply " + 
 				"WHERE article_no=? " + 
-				"ORDER BY replyid DESC";
+				"ORDER BY replyid";
 
 		List<Reply> list = new ArrayList<>();
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
