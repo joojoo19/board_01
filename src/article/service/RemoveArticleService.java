@@ -23,14 +23,18 @@ public class RemoveArticleService {
 		try {
 			con.setAutoCommit(false);
 			Member member = memberDao.selectById(con, authUser.getId());
-			
+
 			// 같지 않으면 throw exception
 			if (!member.getId().equals(authUser.getId())) {
-				throw new PermissionDeniedException();
+				if (authUser.getId().equals("admin")) {
+					return;
+				} else {
+					throw new PermissionDeniedException();
+				}
 			}
-			
+
 			// password와 사용자의 비번이 같으면
-			//   articleDao.delete, articleContentDao.delete
+			// articleDao.delete, articleContentDao.delete
 			articleDao.delete(con, no);
 			articleContentDao.delete(con, no);
 			con.commit();
@@ -38,6 +42,6 @@ public class RemoveArticleService {
 			JdbcUtil.rollback(con);
 			throw new RuntimeException(e);
 		}
-		
+
 	}
 }

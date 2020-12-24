@@ -45,7 +45,7 @@ public class RemoveNoticeHandler implements CommandHandler{
 		HttpSession session = req.getSession();
 		User authUser = (User) session.getAttribute("admin");
 		
-		int no = Integer.parseInt(req.getParameter("no"));
+		int no = Integer.parseInt(req.getParameter("removeNo"));
 		
 		NoticeData noticeData = readService.getNotice(no, false);
 		

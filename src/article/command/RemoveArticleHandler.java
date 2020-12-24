@@ -20,7 +20,6 @@ import auth.service.User;
 import mvc.command.CommandHandler;
 
 public class RemoveArticleHandler implements CommandHandler{
-	private static final String FORM_VIEW = "removeArticleForm";
 	private ReadArticleService readService = new ReadArticleService();
 	private RemoveArticleService removeArticleService = new RemoveArticleService();
 
@@ -36,7 +35,7 @@ public class RemoveArticleHandler implements CommandHandler{
 		}
 	}
 		private String processForm(HttpServletRequest req, HttpServletResponse res) {
-		return FORM_VIEW;
+		return null;
 	}
 		private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Map<String, Boolean> errors = new HashMap<>();
@@ -46,7 +45,8 @@ public class RemoveArticleHandler implements CommandHandler{
 		HttpSession session = req.getSession();
 		User authUser = (User) session.getAttribute("authUser");
 		
-		int no = Integer.parseInt(req.getParameter("no"));
+		int no = Integer.parseInt(req.getParameter("removeNo"));
+		System.out.println(no);
 		
 		ArticleData articleData = readService.getArticle(no, false);
 		
@@ -56,8 +56,11 @@ public class RemoveArticleHandler implements CommandHandler{
 		//           아니면 throw exception
 		
 		// 안 같으면 throw exception
+		if(!authUser.getId().equals("admin")) {
 		if (!authUser.getId().equals(articleData.getArticle().getWriter().getId())) {
-			res.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+				res.sendError(HttpServletResponse.SC_FORBIDDEN);
+			}
 			return null;
 		}
 		
@@ -65,7 +68,7 @@ public class RemoveArticleHandler implements CommandHandler{
 			removeArticleService.delete(no, authUser);
 		} catch (PermissionDeniedException e) {
 			errors.put("invalidePassword", true);
-			return FORM_VIEW;
+			return null;
 		}	catch (Exception e) {
 			throw new RuntimeException(e);
 		}
