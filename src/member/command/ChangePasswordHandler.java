@@ -40,7 +40,11 @@ public class ChangePasswordHandler implements CommandHandler {
 		req.setAttribute("errors", errors);
 		
 		String curPwd = req.getParameter("curPwd");
+		System.out.println(curPwd);
 		String newPwd = req.getParameter("newPwd");
+		System.out.println(newPwd);
+		String confirmNewPwd = req.getParameter("confirmNewPwd");
+		System.out.println(confirmNewPwd);
 		
 		if (curPwd == null || curPwd.isEmpty()) {
 			errors.put("curPwd", true);
@@ -48,6 +52,12 @@ public class ChangePasswordHandler implements CommandHandler {
 		
 		if (newPwd == null || newPwd.isEmpty()) {
 			errors.put("newPwd", true);
+		}
+		if (confirmNewPwd == null || confirmNewPwd.isEmpty()) {
+			errors.put("confirmNewPwd", true);
+		}		
+		if (!newPwd.equals(confirmNewPwd)) {
+			errors.put("notMatchconfirmPwd", true);
 		}
 		if (!errors.isEmpty()) {
 			return FORM_VIEW;
