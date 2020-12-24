@@ -1,8 +1,16 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="reply.model.*" %>
+<%@ page import="java.util.*"%>
+<%
+List<Reply> list = (List<Reply>) request.getAttribute("replyList");
+int size = list.size();
+request.setAttribute("size", size);
+%>
 
 <!DOCTYPE html>
 <html>
