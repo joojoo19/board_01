@@ -10,6 +10,16 @@ public class NoticeReply {
 	private Date regDate;
 	private Date modDate;
 	
+	public NoticeReply(int id, String memberId, int noticeNum, String body, Date regDate) {
+		this.id = id;
+		this.memberId = memberId;
+		this.noticeNum = noticeNum;
+		this.body = body;
+		this.regDate = regDate;
+	}
+	public NoticeReply() {
+
+	}
 	public int getId() {
 		return id;
 	}
