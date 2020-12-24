@@ -20,7 +20,7 @@
 		<div class="col-4">
 		</div>
 		<div class="col-4">
-			<h3>암호변경</h3>
+			<h3>비밀번호 변경</h3>
 			<br />
 <form action="${root }/changePwd.do" method="post">
 <u:alertMessage/>
