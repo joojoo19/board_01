@@ -50,13 +50,18 @@
 	<filter-mapping>
 		<filter-name>LoginCheckFilter</filter-name>
 		<url-pattern>/changePwd.do</url-pattern>
+		<url-pattern>/changeName.do</url-pattern>
+		<url-pattern>/changeEmail.do</url-pattern>
 		<url-pattern>/removeMember.do</url-pattern>
 		<url-pattern>/article/write.do</url-pattern>
-		<url-pattern>/article/modify.do</url-pattern>
 		<url-pattern>/reply/add.do</url-pattern>
 		<url-pattern>/notice/write.do</url-pattern>
-		<url-pattern>/notice/modify.do</url-pattern>
 		<url-pattern>/notice/reply/add.do</url-pattern>
+
+
+
+
+
 	</filter-mapping>
 
 </web-app>
