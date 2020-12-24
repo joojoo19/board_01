@@ -1,4 +1,4 @@
-package reply.command;
+package noticeReply.command;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;
 import mvc.command.CommandHandler;
-import reply.model.Reply;
-import reply.service.PermissionDeniedException;
-import reply.service.ReplyModifyRequest;
-import reply.service.ReplyModifyService;
-import reply.service.ReplyNotFoundException;
-import reply.service.ReplyService;
+import noticeReply.model.NoticeReply;
+import noticeReply.service.PermissionDeniedException;
+import noticeReply.service.NoticeReplyModifyRequest;
+import noticeReply.service.NoticeReplyModifyService;
+import noticeReply.service.NoticeReplyNotFoundException;
+import noticeReply.service.NoticeReplyService;
 
-public class ReplyModifyHandler implements CommandHandler {
-	private ReplyModifyService modifyService = new ReplyModifyService();
+public class NoticeReplyModifyHandler implements CommandHandler {
+	private NoticeReplyModifyService modifyService = new NoticeReplyModifyService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -34,7 +34,7 @@ public class ReplyModifyHandler implements CommandHandler {
 
 		
 		
-		ReplyModifyRequest reModReq = new ReplyModifyRequest(no, authUser.getId(), body);
+		NoticeReplyModifyRequest reModReq = new NoticeReplyModifyRequest(no, authUser.getId(), body);
 		req.setAttribute("reModReq", reModReq);
 
 		Map<String, Boolean> errors = new HashMap<>();
@@ -46,9 +46,9 @@ public class ReplyModifyHandler implements CommandHandler {
 
 			try {
 				modifyService.modify(reModReq);
-				res.sendRedirect(req.getContextPath() + "/article/read.do?no=" + articleNo);
+				res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + articleNo);
 				return null;
-			} catch (ReplyNotFoundException e) {
+			} catch (NoticeReplyNotFoundException e) {
 				e.printStackTrace();
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return null;

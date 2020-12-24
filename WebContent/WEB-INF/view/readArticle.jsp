@@ -18,7 +18,15 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <title>Insert title here</title>
-
+<script>
+	function removeArticle() {
+		if (confirm("삭제하시겠습니까?") == true) {
+			document.getElementById('removeArticle-form').submit();
+		} else {
+			return;
+		}
+	};
+</script>
 </head>
 <body>
 	<u:navbar />
@@ -51,23 +59,28 @@
 							<td width="35%">${articleData.article.number }</td>
 							<td width="15%">작성일</td>
 							<td width="35%"><fmt:formatDate
-									value="${articleData.article.regDate }" pattern="yyyy-MM-dd hh:mm" /></td>
+									value="${articleData.article.regDate }"
+									pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
 
 						<tr>
 							<td width="15%">작성자</td>
 							<td width="35%">${articleData.article.writer.name }</td>
-								<td width="15%">수정일</td>
+							<td width="15%">수정일</td>
 							<td width="35%"><fmt:formatDate
-									value="${articleData.article.regDate }" pattern="yyyy-MM-dd hh:mm" /></td>
+									value="${articleData.article.regDate }"
+									pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
-						
+						<tr>
+							<td>제목</td>
+							<td colspan="3"><c:out value="${articleData.article.title }"></c:out></td>
+						</tr>
 						<tr>
 							<td colspan="4" class="text-center">내용</td>
 						</tr>
 						<tr>
 							<td colspan="4">
-								<div style="height: 250px">${articleData.content }</div>
+								<div style="height: 250px; overflow:scroll;"><u:pre value="${articleData.content }"/></div>
 							</td>
 
 						</tr>
@@ -83,20 +96,22 @@
 								type="submit" class="btn btn-primary">목록</button></a>
 					</div>
 
-					<c:if test="${authUser.id == articleData.article.writer.id }">
+					<c:if test="${authUser.id == articleData.article.writer.id || authUser.id == 'admin'}">
 						<div class="pr-1 bd-highlight">
 							<a
 								href="${root }/article/modify.do?no=${articleData.article.number }"><button
 									type="submit" class="btn btn-primary">수정</button></a>
 						</div>
 
-	
+						<form action="${root }/article/remove.do" id="removeArticle-form"
+							method="POST">
+							<input type="text" name="removeNo"
+								value="${articleData.article.number }" hidden />
 							<div class="bd-highlight">
-<a href="${root }/article/remove.do?no=${articleData.article.number }">
-									<button type="button" class="btn btn-primary">삭제</button></a>
-								
- </div>
+								<button type="button" class="btn btn-primary" onclick="removeArticle();">삭제</button>
 
+							</div>
+						</form>
 					</c:if>
 				</div>
 				<hr />

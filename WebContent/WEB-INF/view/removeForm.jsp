@@ -17,6 +17,7 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <title>Insert title here</title>
 </head>
+
 <body>
 	<u:navbar />
 	<div class="container">

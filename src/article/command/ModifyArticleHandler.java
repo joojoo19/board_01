@@ -40,7 +40,6 @@ public class ModifyArticleHandler implements CommandHandler {
 		User authUser = (User) req.getSession().getAttribute("authUser");
 		String noVal = req.getParameter("no");
 		int no = Integer.valueOf(noVal);
-		int pageNum = Integer.valueOf(req.getParameter("pageNo"));
 
 		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, req.getParameter("title"), req.getParameter("content"));
 		req.setAttribute("modReq", modReq);
@@ -53,7 +52,7 @@ public class ModifyArticleHandler implements CommandHandler {
 		}
 		try {
 			modifyService.modify(modReq);
-			res.sendRedirect(req.getContextPath() + "/article/read.do?no=" + no +"&page=" + pageNum);
+			res.sendRedirect(req.getContextPath() + "/article/read.do?no=" + no);
 			return null;
 		} catch (ArticleNotFoundException e) {
 			e.printStackTrace();

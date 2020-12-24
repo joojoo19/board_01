@@ -4,25 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 <%@ attribute name="articleNo" type="java.lang.Integer"%>
-<script>
-	$(function() {
-		$(".reply-modify").hide();
-		$(".modify-btn").click(function() {
-			$(".reply-modify").toggle();
-		});
-		
-		$("#remove-btn").click(function() {
-			var c = confirm("삭제하시겠습니까?");
-			if (c) {
-				location.href = "remove?idx=${param.idx}";
-			}
-		});
-	});
-</script>
+
+
+
 <style>
 button {
 	border: none;
 }
+
 </style>
 <div>
 
@@ -41,23 +30,24 @@ button {
 					<td><div class="reply-body">
 							<p>${reply.body }</p>
 						</div> <fmt:formatDate value="${reply.regDate }"
-							pattern="yyyy-mm-dd HH:mm" /></td>
+							pattern="YYYY-M-D HH:mm" /></td>
 					<td><c:if test="${authUser.id == reply.memberId }">
 
-							<button class="modify-btn">수정</button>
-							<form action="${root }/reply/remove.do" method="post">
+							<button id="modify-btn" href="#collapse-modify${status.count }" data-toggle="collapse"						
+							aria-expanded="false" aria-controls="collapse-modify${status.count }">수정</button>
+							<form action="${root }/reply/remove.do" method="post" id="removeForm">
 								<input type="number" name="modiNo" value="${reply.id}" hidden />
 								<input type="number" name="pageNo" value="${param.pageNo}"
 									hidden /> <input type="number" name="no"
 									value="${reply.articleNum}" hidden />
-								<button type="submit" id="remove-btn" name="cmd" value="remove">삭제</button>
+								<button type="button" id="remove-btn" onclick="remove();">삭제</button>
 							</form>
 						</c:if></td>
 				</tr>
 				<tr>
 					<td colspan="3">
 
-						<div class="form-group reply-modify">
+						<div class="collapse" id="collapse-modify${status.count }">
 							<form action="${root }/reply/modify.do" method="post">
 								<input type="number" name="modiNo" value="${reply.id}" hidden />
 								<input type="number" name="pageNo" value="${param.pageNo}"
@@ -67,7 +57,7 @@ button {
 									id="input1-content" name="body">${reply.body }</textarea>
 								<div class="text-right mt-2">
 									<button type="submit" class="btn btn-primary m-0" name="cmd"
-										value="modify" style="width: 13%;">등록</button>
+										value="modify">등록</button>
 								</div>
 							</form>
 						</div>
@@ -81,3 +71,14 @@ button {
 	</table>
 
 </div>
+<script>
+
+function remove() {
+	if(confirm("삭제하시겠습니까?") == true) {      
+		document.getElementById('removeForm').submit();
+	} else {
+		 return;	
+	}
+};
+
+</script>

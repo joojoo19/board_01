@@ -1,4 +1,4 @@
-package reply.command;
+package noticeReply.command;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;
 import mvc.command.CommandHandler;
-import reply.service.PermissionDeniedException;
-import reply.service.ReplyNotFoundException;
-import reply.service.ReplyRemoveService;
+import noticeReply.service.PermissionDeniedException;
+import noticeReply.service.NoticeReplyNotFoundException;
+import noticeReply.service.NoticeReplyRemoveService;
 
-public class ReplyRemoveHandler implements CommandHandler {
-	ReplyRemoveService reRemoveSvc = new ReplyRemoveService();
+public class NoticeReplyRemoveHandler implements CommandHandler {
+	NoticeReplyRemoveService reRemoveSvc = new NoticeReplyRemoveService();
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -35,9 +35,9 @@ public class ReplyRemoveHandler implements CommandHandler {
 			
 			try {
 				reRemoveSvc.remove(no, authUser);
-				res.sendRedirect(req.getContextPath() + "/article/read.do?no=" + articleNo);
+				res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + articleNo);
 				return null;
-			} catch (ReplyNotFoundException e) {
+			} catch (NoticeReplyNotFoundException e) {
 				e.printStackTrace();
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return  null;

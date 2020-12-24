@@ -20,6 +20,15 @@
 <title>Insert title here</title>
 
 </head>
+<script>
+	function removeNotice() {
+		if (confirm("삭제하시겠습니까?") == true) {
+			document.getElementById('removeNotice-form').submit();
+		} else {
+			return;
+		}
+	};
+</script>
 <body>
 	<u:navbar />
 
@@ -28,7 +37,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-				<h3>게시글 읽기</h3>
+				<h3>공지글</h3>
 				<br />
 				<div class="text-right mb-2">
 
@@ -51,15 +60,17 @@
 							<td width="35%">${noticeData.notice.number }</td>
 							<td width="15%">작성일</td>
 							<td width="35%"><fmt:formatDate
-									value="${noticeData.notice.regDate }" pattern="yyyy-MM-dd  hh:mm" /></td>
+									value="${noticeData.notice.regDate }"
+									pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
-						
+
 						<tr>
 							<td width="15%">작성자</td>
 							<td width="35%">${noticeData.notice.writer.name }</td>
-														<td width="15%">수정일</td>
+							<td width="15%">수정일</td>
 							<td width="35%"><fmt:formatDate
-									value="${noticeData.notice.modDate }" pattern="yyyy-MM-dd  hh:mm" /></td>
+									value="${noticeData.notice.modDate }"
+									pattern="yyyy-MM-dd  hh:mm" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="text-center">내용</td>
@@ -70,7 +81,7 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<div style="height: 250px">${noticeData.content }</div>
+								<div style="height: 250px; overflow:scroll;"><u:pre value="${noticeData.content }"/></div>
 							</td>
 
 						</tr>
@@ -93,20 +104,25 @@
 									type="submit" class="btn btn-primary">수정</button></a>
 						</div>
 
-	
+						<form action="${root }/article/remove.do" id="removeNotice-form"
+							method="POST">
+							<input type="text" name="removeNo"
+								value="${noticeData.notice.number }" hidden />
 							<div class="bd-highlight">
-<a href="${root }/notice/remove.do?no=${noticeData.notice.number }">
-									<button type="button" class="btn btn-primary">삭제</button></a>
-								
- </div>
+								<button type="button" class="btn btn-primary"
+									onclick="removeNotice();">삭제</button>
 
+							</div>
+						</form>
 					</c:if>
 				</div>
+				<hr />
+				<u:listNoticeReply />
 				<hr />
 				<div class="mb-3">
 					<u:noticeReplyForm noticeNo="${noticeData.notice.number }" />
 				</div>
-				<u:listNoticeReply />
+
 
 				<div class="col-3"></div>
 			</div>
