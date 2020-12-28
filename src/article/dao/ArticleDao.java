@@ -110,11 +110,11 @@ public class ArticleDao {
 			JdbcUtil.close(stmt);
 		}
 	}
-
+	
 	public List<Article> select(Connection con, int pageNum, int size) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = " SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
+		String sql = "SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
 				+ "FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
 				+ "OVER (ORDER BY article_no DESC) rn FROM article_view) " + " WHERE rn Between ? and ?"; // sql develop은
 																										// 1베이스
@@ -129,6 +129,70 @@ public class ArticleDao {
 				result.add(convertArticleReply(rs));
 			}
 			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	public List<Article> select(Connection con, int articleNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
+				+ "FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
+				+ "OVER (ORDER BY article_no DESC) rn FROM article_view) " + " WHERE article_no= ?"; 
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleNo);
+
+			rs = pstmt.executeQuery();
+			List<Article> result = new ArrayList<>();
+			while (rs.next()) {
+				result.add(convertArticleReply(rs));
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	public List<Article> select(Connection con, String field, String keyword) throws SQLException {
+		System.out.println("field : " +field +", keyword : " + keyword);
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = " SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
+					+ "FROM (SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
+					+ "OVER (ORDER BY article_no DESC) rn FROM article_view) WHERE "+field+" LIKE ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, "%"+keyword+"%");
+
+			rs = pstmt.executeQuery();
+
+			List<Article> result = new ArrayList<>();
+
+			while (rs.next()) {
+				result.add(convertArticleReply(rs));
+			}
+			return result;
+			
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	public int selectCount(Connection con, String field, String keyword) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("SELECT COUNT(*) FROM article WHERE " +field+ " LIKE ?");
+			pstmt.setString(1, "%"+keyword+"%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);

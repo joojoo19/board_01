@@ -19,6 +19,7 @@ public class ListArticleHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
 		String pageNoVal = req.getParameter("pageNo");
 		int pageNo = 1;
 		if (pageNoVal != null) {

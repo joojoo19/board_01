@@ -4,14 +4,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import article.model.Article;
 import article.model.ArticleContent;
+import article.model.Writer;
 import jdbc.JdbcUtil;
-import oracle.net.aso.c;
 
 public class ArticleContentDao {
+	public int[] search(Connection con, String keyword) throws SQLException {
+		String sql = "SELECT article_no FROM article_content WHERE content LIKE ? ORDER BY article_no DESC";
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1,  "%"+ keyword + "%");
+			ResultSet rs = pstmt.executeQuery();
+			
 
+			int[] listNo = new int[count(con, keyword)];
+			int i = 0;
+			while (rs.next()) {
+				listNo[i] = rs.getInt(1);
+				System.out.println(listNo[i]);
+				i++;
+			}
+			return listNo;
+		}
+	}
+	public int count(Connection con, String keyword) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM article_content WHERE content LIKE ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "%"+ keyword + "%");
+			ResultSet rs = pstmt.executeQuery();
+			int i = 0;
+			if(rs.next()) {
+			i = rs.getInt(1); }
+			System.out.println("i : "+i);
+			return i;
+		}
+	}
 	public int delete(Connection con, int removeNo) throws SQLException {
 		String sql = "DELETE article_content WHERE article_no = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {

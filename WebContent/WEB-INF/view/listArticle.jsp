@@ -99,7 +99,7 @@ a:active {
 									<td><a
 										href="read.do?no=${article.number}&pageNo=${articlePage.currentPage }">
 											<c:out value="${article.title }" />
-									</a>&nbsp;[${article.replyCount }]</td>
+									</a>&nbsp;<c:if test="${article.replyCount > 0}">[${article.replyCount }]</c:if></td>
 									<td class="text-center">${article.writer.name }</td>
 									<td class="text-center"><fmt:formatDate
 											value="${article.regDate }" pattern="yyyy-MM-dd" /></td>
@@ -113,13 +113,14 @@ a:active {
 								class="btn btn-primary">글쓰기</button></a>
 					</div>
 				<div >
-					<form action="">
+					<form action="${root }/article/search.do" method="post" id="articleSearch-form">
+					<input type="text" name="pageNo" value="${articlePage.currentPage }" hidden/>
 						<select name="search" id="">
-							<option>검색</option>
+							<option selected>검색</option>
 							<option value="title">제목</option>
 							<option value="content">내용</option>
-							<option value="name">작성자</option>
-						</select><input type="text" name="keyword" />
+							<option value="writer_name">작성자</option>
+						</select><input type="text" name="keyword" value="${param.keyword }"/>
 						<button type="submit" class="btn btn-primary btn-sm mb-1">검색</button>
 					</form>
 				</div>
