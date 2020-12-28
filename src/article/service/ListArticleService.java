@@ -16,10 +16,14 @@ public class ListArticleService {
 		try (Connection con = ConnectionProvider.getConnection()){
 			int total = articleDao.selectCount(con);
 			List<Article> content = articleDao.select(con, pageNum, size);
+			for(Article a : content) {
+				System.out.println( "service : " + a.getTitle());
+			}
 			return new ArticlePage(total, pageNum, size, content);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
+
 }

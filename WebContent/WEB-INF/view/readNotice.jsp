@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="noticeReply.model.*" %>
+<%@ page import="java.util.*"%>
+<%
+List<NoticeReply> noticeList = (List<NoticeReply>) request.getAttribute("noticerReplyList");
+int size = noticeList.size();
+request.setAttribute("size", size);
+%>
 
 <!DOCTYPE html>
 <html>

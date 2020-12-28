@@ -135,7 +135,47 @@ public class NoticeDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public List<Notice> select(Connection con, String field, String keyword) throws SQLException {
+		System.out.println("field : " +field +", keyword : " + keyword);
 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT rn, notice_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt "
+					+ "FROM (SELECT notice_no, writer_id, writer_name, title, regdate, moddate, read_cnt, reply_cnt, ROW_NUMBER() "
+					+ "OVER (ORDER BY notice_no DESC) rn FROM notice_view) WHERE "+field+" LIKE ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rs = pstmt.executeQuery();
+
+			List<Notice> result = new ArrayList<>();
+			while (rs.next()) {
+				result.add(convertNoticeReply(rs));
+			}
+			return result;
+			
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	public int selectCount(Connection con, String field, String keyword) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement("SELECT COUNT(*) FROM notice WHERE " +field+ " LIKE ?");
+			pstmt.setString(1, "%"+keyword+"%");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
 	private Notice convertNotice(ResultSet rs) throws SQLException {
 		return new Notice(rs.getInt("notice_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
 				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"));

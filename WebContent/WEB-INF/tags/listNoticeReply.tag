@@ -16,7 +16,7 @@ button {
 	<table class="table table-sm">
 		<thead>
 			<tr>
-				<th colspan="3" class="text-center">댓글</th>
+				<th colspan="3" class="text-center">댓글&nbsp;<c:if test="${size > 0}">[${size }]</c:if></th>
 			</tr>
 		</thead>
 		<c:forEach items="${replyList }" var="reply" varStatus="status">
