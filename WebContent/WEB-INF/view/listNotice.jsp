@@ -65,7 +65,7 @@ a:active {
       <th scope="row" class="text-center">${notice.number }</th>
       <td><a href="read.do?no=${notice.number}&pageNo=${noticePage.currentPage }">
       <c:out value="${notice.title }"/>
-</a>&nbsp;[${notice.replyCount }]</td>
+</a>&nbsp;<c:if test="${notice.replyCount > 0 }">[${notice.replyCount }]</c:if></td>
       <td class="text-center">${notice.writer.name }</td>
         <td class="text-center"><fmt:formatDate value="${notice.regDate }" pattern="yyyy-MM-dd"/>
         </td>
@@ -80,9 +80,10 @@ a:active {
 						</div>
 						</c:if>
 						<div class="mt-5">
-						<form action="">
+						<form action="${root }/notice/search.do" method="post" id="noticeSearch-form">
+						<input type="text" name="pageNo" value="${noticePage.currentPage }" hidden/>
 						<select name="search" id="">
-						<option>검색</option>
+						<option selected>검색</option>
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 						<option value="name">작성자</option>
