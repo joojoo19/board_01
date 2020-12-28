@@ -38,7 +38,7 @@
 									<div class="card-body text-center">
 										  <h4 class="card-title">내 정보 변경</h4>
 										 <h6 class="card-subtitle mb-2 text-muted">이름, 이메일 변경</h6>
-										 <a href="${root }/changeInfo.do" class="card-link"><button type="submit" class="btn btn-primary btn-sm">변경</button></a>
+										 <a href="${root }/changeMyInfo.do" class="card-link"><button type="submit" class="btn btn-primary btn-sm">변경</button></a>
 									</div>
 								</div></td>
 						</tr>
