@@ -76,7 +76,7 @@ request.setAttribute("size", size);
 							<td width="35%">${articleData.article.writer.name }</td>
 							<td width="15%">수정일</td>
 							<td width="35%"><fmt:formatDate
-									value="${articleData.article.regDate }"
+									value="${articleData.article.modifiedDate }"
 									pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
 						<tr>
