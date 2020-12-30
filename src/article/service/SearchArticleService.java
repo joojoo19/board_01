@@ -9,6 +9,7 @@ import article.dao.ArticleContentDao;
 import article.dao.ArticleDao;
 import article.model.Article;
 import jdbc.ConnectionProvider;
+import jdbc.JdbcUtil;
 
 public class SearchArticleService {
 	private ArticleDao articleDao = new ArticleDao();
@@ -18,6 +19,9 @@ public class SearchArticleService {
 	public ArticlePage getArticlePage(String field, String keyword, int pageNum) {
 		try (Connection con = ConnectionProvider.getConnection()){
 			int total = articleDao.selectCount(con, field, keyword);
+			if(total == 0) {
+				throw new ArticleNotFoundException();
+			}
 			List<Article> content = articleDao.select(con, field, keyword);
 
 			return new ArticlePage(total, pageNum, size, content);
@@ -29,15 +33,17 @@ public class SearchArticleService {
 	public ArticlePage getArticlePage(String keyword, int pageNum) {
 		try (Connection con = ConnectionProvider.getConnection()){
 			int total = contentDao.count(con, keyword);
+			if(total == 0) {
+				throw new ArticleNotFoundException();
+			}
 			int [] articleNo = contentDao.search(con, keyword);
-			List<Article> content = null;
-			List<Article> list = new ArrayList<Article>();
+			List<Article> content = new ArrayList<Article>();
 			for(int i : articleNo) {
 				Article a =  articleDao.selectById(con, i);
-				list.add(a);
+				content.add(a);
 				System.out.println("searchSvc i : " + i);				
 			}
-			content = list;
+
 			return new ArticlePage(total, pageNum, size, content);
 		} catch (SQLException e) {
 			e.printStackTrace();

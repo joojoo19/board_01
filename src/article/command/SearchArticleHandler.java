@@ -1,10 +1,15 @@
 package article.command;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import article.service.ArticleNotFoundException;
 import article.service.ArticlePage;
 import article.service.SearchArticleService;
+import member.service.InvalidPasswordException;
 import mvc.command.CommandHandler;
 import notice.service.ListNoticeArticleService;
 import notice.service.NoticePage;
@@ -18,6 +23,8 @@ public class SearchArticleHandler implements CommandHandler {
 	 */
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		Map<String, Boolean> errors = new HashMap<>();
+		req.setAttribute("errors", errors);
 		// list.do?search=title&keyword=공지
 		String field_ = req.getParameter("search");
 		String keyword_ = req.getParameter("keyword");
@@ -34,17 +41,22 @@ public class SearchArticleHandler implements CommandHandler {
 		System.out.println(field +","+keyword);
 		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
 		
+		try {
 		ArticlePage articlePage = null;
 		if(field.equals("content")) {
 			articlePage = searchSvc.getArticlePage(keyword, pageNo);
 			req.setAttribute("articlePage", articlePage);
+
 			return "listArticle";
 		}
 		 articlePage = searchSvc.getArticlePage(field, keyword, pageNo);
-		/* NoticePage noticePage = noticeService.getNoticePage(); */
 		req.setAttribute("articlePage", articlePage);
-		/* req.setAttribute("noticePage", noticePage); */
+
 		return "listArticle";
+		} catch (ArticleNotFoundException e) {
+			errors.put("searchFail", true);
+			return "listArticle";
+		}
 	}
 
 }
