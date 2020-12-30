@@ -23,14 +23,12 @@ public class ReplyModifyHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		User authUser = (User) req.getSession().getAttribute("authUser");
-		int no = Integer.valueOf(req.getParameter("modiNo"));
+		int no = Integer.valueOf(req.getParameter("no"));
 		System.out.println(no);
-		int articleNo = Integer.valueOf(req.getParameter("no"));
+		int articleNo = Integer.valueOf(req.getParameter("articleNo"));
 		System.out.println(articleNo);
 		String body = req.getParameter("body");
 		System.out.println(body);
-
-		
 
 		
 		

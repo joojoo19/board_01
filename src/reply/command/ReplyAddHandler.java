@@ -15,11 +15,24 @@ public class ReplyAddHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("authUser");
-		
-		int articleNo = Integer.parseInt(req.getParameter("no"));
+		String no = req.getParameter("no");
+		if(no == null || no.isEmpty()) {
+			no = "0";
+		}
+		System.out.println("no : " + no);
+		int replyNo = Integer.parseInt(no);
+		System.out.println(replyNo);
+		int groupNo = Integer.parseInt(no);				
+		if(groupNo == 0) {
+			groupNo = 1;
+		}
+		System.out.println(groupNo);
+		int articleNo = Integer.parseInt(req.getParameter("articleNo"));
+		System.out.println(articleNo);
 		String userId = user.getId();
 		String body = req.getParameter("body");
-		addService.add(userId, articleNo, body);
+		System.out.println(body);
+		addService.add(userId, articleNo, body, replyNo, groupNo);
 		
 		res.sendRedirect(req.getContextPath() + "/article/read.do?no=" + articleNo);
 		

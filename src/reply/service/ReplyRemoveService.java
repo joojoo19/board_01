@@ -16,7 +16,7 @@ public class ReplyRemoveService {
 		try {
 			con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
-			Reply reply = dao.selectById(con, authUser.getId());
+			Reply reply = dao.selectById(con, no);
 
 			if(!reply.getMemberId().equals(authUser.getId())) {
 				throw new PermissionDeniedException();

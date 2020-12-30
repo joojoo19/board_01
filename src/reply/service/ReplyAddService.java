@@ -9,11 +9,11 @@ import reply.dao.ReplyDao;
 public class ReplyAddService {
 	private ReplyDao dao = new ReplyDao();
 
-	public void add(String userId, int articleNo, String body) {
+	public void add(String userId, int articleNo, String body, int replyNo, int groupNo) {
 		Connection conn = ConnectionProvider.getConnection();
 		
 		try {
-			dao.insert(conn, userId, articleNo, body);
+			dao.insert(conn, userId, articleNo, body, replyNo, groupNo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

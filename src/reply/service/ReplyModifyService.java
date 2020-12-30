@@ -20,14 +20,14 @@ public class ReplyModifyService {
 			con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
 			
-			Reply reply = dao.selectById(con, reModReq.getUserId());
+			Reply reply = dao.selectById(con, reModReq.getId());
 			if(reply == null) {
 				throw new ReplyNotFoundException();
 			}
 			if(!canModify(reModReq.getUserId(), reply)) {
 				throw new PermissionDeniedException();
 			}
-			dao.update(con, reModReq.getReplyid(), reModReq.getBody());
+			dao.update(con, reModReq.getId(), reModReq.getBody());
 			
 			con.commit();
 		} catch (SQLException e) {
