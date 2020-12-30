@@ -31,16 +31,12 @@
     <input type="text" class="form-control" name="id" value="${param.id}" id="input1-id" style="border-color: #608df9">
     <c:if test="${errors.id }">
     <small class="form-text text-danger">ID를 입력하세요.</small></c:if>
-        <c:if test="${errors.idNotMatch }">
-    <small class="form-text text-danger">ID가 일치하지 않습니다.</small></c:if>
   </div>
   <div class="form-group">
     <label for="input3-pw">암호</label>
     <input type="password" class="form-control" id="input3-pw" name="pw" style="border-color: #608df9">
     <c:if test="${errors.pw }">
      <small class="form-text text-danger">암호를 입력하세요.</small></c:if>
-         <c:if test="${errors.PwNotMatch }">
-     <small class="form-text text-danger">암호가 일치하지 않습니다.</small></c:if>
   </div>
   		<div class="text-right">
   <button type="submit" class="btn btn-primary" style="width: 100%">로그인</button></div>

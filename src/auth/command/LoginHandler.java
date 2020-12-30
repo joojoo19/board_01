@@ -54,11 +54,13 @@ public class LoginHandler implements CommandHandler {
 			return FORM_VIEW;
 		} catch (LoginFailException e) {
 			e.printStackTrace();
-			errors.put("pwNotMatch", Boolean.TRUE);
+			req.getSession().setAttribute("messageType", "에러메세지");
+			req.getSession().setAttribute("messageContent", "비밀번호가  맞지 않습니다");
 			return FORM_VIEW;
 		}catch (MemberNotFoundException e) {
 			e.printStackTrace();
-			errors.put("idNotMatch", Boolean.TRUE);
+			req.getSession().setAttribute("messageType", "에러메세지");
+			req.getSession().setAttribute("messageContent", "아이디가 맞지 않습니다");
 			return FORM_VIEW;
 		}
 	}
