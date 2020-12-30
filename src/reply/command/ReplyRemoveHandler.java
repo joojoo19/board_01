@@ -19,9 +19,9 @@ public class ReplyRemoveHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		User authUser = (User) req.getSession().getAttribute("authUser");
 
-		int no = Integer.valueOf(req.getParameter("modiNo"));
+		int no = Integer.valueOf(req.getParameter("no"));
 		System.out.println(no);
-		int articleNo = Integer.valueOf(req.getParameter("no"));
+		int articleNo = Integer.valueOf(req.getParameter("articleNo"));
 		System.out.println(articleNo);
 
 

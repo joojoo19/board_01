@@ -23,9 +23,10 @@
 <title>Insert title here</title>
 <style>
 .notice_style {
-	font-weight: bold; 
+	font-weight: bold;
 	background-color: #F0F0F0;
 }
+
 a {
 	color: black;
 	text-decoration: none;
@@ -76,26 +77,35 @@ a:active {
 						<tbody>
 							<!-- 공지사항  -->
 
-								<c:forEach var="notice" items="${noticePage.content }">
+							<c:forEach var="notice" items="${noticePage.content }">
 
-									<tr class="notice_style">
-										<th scope="row" class="text-center">공지</th>
-										<td><a
-											href="${root }/notice/read.do?no=${notice.number}">
-												<c:out value="${notice.title }" />
-										</a>&nbsp;[${notice.replyCount }]</td>
-										<td class="text-center" style="font-weight:normal;">${notice.writer.name }</td>
-										<td class="text-center" style="font-weight:normal;"><fmt:formatDate
-												value="${notice.regDate }" pattern="yyyy-MM-dd" /></td>
-										<td class="text-center" style="font-weight:normal;">${notice.readCount }</td>
-									</tr>
+								<tr class="notice_style">
+									<th scope="row" class="text-center">공지</th>
+									<td><a href="${root }/notice/read.do?no=${notice.number}">
+											<c:out value="${notice.title }" />
+									</a>&nbsp;[${notice.replyCount }]</td>
+									<td class="text-center" style="font-weight: normal;">${notice.writer.name }</td>
+									<td class="text-center" style="font-weight: normal;"><fmt:formatDate
+											value="${notice.regDate }" pattern="yyyy-MM-dd" /></td>
+									<td class="text-center" style="font-weight: normal;">${notice.readCount }</td>
+								</tr>
 
-								</c:forEach>
+							</c:forEach>
+
+							<c:if test="${errors.searchFail }">
+								<tr>
+									<td colspan="5" class="text-center"><span
+										style="font-size: 20px; color: gray;"> <i
+											class="fas fa-exclamation-triangle"></i>검색 결과가 없습니다.
+									</span></td>
+								</tr>
+							</c:if>
 
 							<!-- 게시글 -->
 							<c:forEach var="article" items="${articlePage.content }">
 								<tr>
-									<th scope="row" class="text-center" style="font-weight:normal;">${article.number }</th>
+									<th scope="row" class="text-center"
+										style="font-weight: normal;">${article.number }</th>
 									<td><a
 										href="read.do?no=${article.number}&pageNo=${articlePage.currentPage }">
 											<c:out value="${article.title }" />
@@ -104,6 +114,7 @@ a:active {
 									<td class="text-center"><fmt:formatDate
 											value="${article.regDate }" pattern="yyyy-MM-dd" /></td>
 									<td class="text-center">${article.readCount }</td>
+
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -112,23 +123,26 @@ a:active {
 						<a href="${root }/article/write.do"><button type="submit"
 								class="btn btn-primary">글쓰기</button></a>
 					</div>
-				<div >
-					<form action="${root }/article/search.do" method="post" id="articleSearch-form">
-					<input type="text" name="pageNo" value="${articlePage.currentPage }" hidden/>
-						<select name="search" id="">
-							<option selected>검색</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="writer_name">작성자</option>
-						</select><input type="text" name="keyword" value="${param.keyword }"/>
-						<button type="submit" class="btn btn-primary btn-sm mb-1">검색</button>
-					</form>
-				</div>
+					<div>
+						<form action="${root }/article/search.do" method="post"
+							id="articleSearch-form">
+							<input type="text" name="pageNo"
+								value="${articlePage.currentPage }" hidden /> <select
+								name="search" id="">
+								<option selected>검색</option>
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+								<option value="writer_name">작성자</option>
+							</select><input type="text" name="keyword" value="${param.keyword }" />
+							<button type="submit" class="btn btn-primary btn-sm mb-1">검색</button>
+						</form>
+					</div>
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<c:if test="${articlePage.startPage > 5}">
 								<li class="page-item"><a class="page-link"
-									href="${root }/article/list.do?pageNo=${articlePage.startPage - 5 }"><i class="fas fa-angle-double-left"></i></a></li>
+									href="${root }/article/list.do?pageNo=${articlePage.startPage - 5 }"><i
+										class="fas fa-angle-double-left"></i></a></li>
 							</c:if>
 
 							<c:forEach begin="${articlePage.startPage }"
@@ -139,7 +153,8 @@ a:active {
 							</c:forEach>
 							<c:if test="${articlePage.endPage < articlePage.totalPages }">
 								<li class="page-item"><a class="page-link"
-									href="${root }/article/list.do?pageNo=${articlePage.startPage + 5 }"><i class="fas fa-angle-double-right"></i></a></li>
+									href="${root }/article/list.do?pageNo=${articlePage.startPage + 5 }"><i
+										class="fas fa-angle-double-right"></i></a></li>
 							</c:if>
 						</ul>
 					</nav>
