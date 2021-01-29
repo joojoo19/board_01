@@ -23,9 +23,12 @@ public class ReadNoticeHandler implements CommandHandler {
 		int noticeNum = Integer.parseInt(noVal);
 		try {
 			NoticeData noticeData = readService.getNotice(noticeNum, true);
-			List<NoticeReply> noticerReplyList = replyService.getReplyList(noticeNum); 
+			List<NoticeReply> noticeReplyList = replyService.getReplyList(noticeNum); 
+			for(NoticeReply l : noticeReplyList) {
+				System.out.println(l.getBody());
+			}
 			req.setAttribute("noticeData", noticeData);
-			req.setAttribute("noticerReplyList", noticerReplyList);
+			req.setAttribute("noticeReplyList", noticeReplyList);
 			return "readNotice";
 		} catch (NoticeNotFoundException | NoticeContentNotFoundException e) {
 //			req.getServletContext().log("no article", e);

@@ -20,14 +20,14 @@ public class NoticeReplyModifyService {
 			con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
 			
-			NoticeReply reply = dao.selectById(con, reModReq.getUserId());
+			NoticeReply reply = dao.selectById(con, reModReq.getId());
 			if(reply == null) {
 				throw new NoticeReplyNotFoundException();
 			}
 			if(!canModify(reModReq.getUserId(), reply)) {
 				throw new PermissionDeniedException();
 			}
-			dao.update(con, reModReq.getReplyid(), reModReq.getBody());
+			dao.update(con, reModReq.getId(), reModReq.getBody());
 			
 			con.commit();
 		} catch (SQLException e) {

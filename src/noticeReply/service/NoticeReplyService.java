@@ -21,7 +21,9 @@ public class NoticeReplyService {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		
+		for(NoticeReply l : list) {
+			System.out.println(l.getBody());
+		}
 		return list;
 	}
 	

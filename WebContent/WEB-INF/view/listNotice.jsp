@@ -60,6 +60,14 @@ a:active {
     </tr>
   </thead>
   <tbody>
+  							<c:if test="${errors.searchFail }">
+								<tr>
+									<td colspan="5" class="text-center"><span
+										style="font-size: 20px; color: gray;"> <i
+											class="fas fa-exclamation-triangle"></i>검색 결과가 없습니다.
+									</span></td>
+								</tr>
+							</c:if>
   <c:forEach var="notice" items="${noticePage.content }">
     <tr>
       <th scope="row" class="text-center">${notice.number }</th>

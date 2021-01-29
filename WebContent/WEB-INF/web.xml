@@ -12,7 +12,8 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<context-param>
+ 	
+<!-- 		<context-param>
 		<param-name>jdbcUrl</param-name>
 		<param-value>jdbc:oracle:thin:@localhost:1521:orcl</param-value>
 	</context-param>
@@ -25,6 +26,21 @@
 	<context-param>
 		<param-name>jdbcPassword</param-name>
 		<param-value>admin</param-value>
+	</context-param>
+ -->
+	<context-param>
+		<param-name>jdbcUrl</param-name>
+		<param-value>jdbc:oracle:thin:@db202101121035_high?TNS_ADMIN=/home/opc/wallet</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jdbcUser</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jdbcPassword</param-name>
+		<param-value>Asdfghjkl123</param-value>
 	</context-param>
 
 	<servlet>

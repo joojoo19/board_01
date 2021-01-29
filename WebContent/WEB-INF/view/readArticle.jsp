@@ -122,12 +122,11 @@ request.setAttribute("size", size);
 						</form>
 					</c:if>
 				</div>
-				<hr />
+
 				<u:listReply />
 				<hr />
-				<div class="mb-3">
 					<u:replyForm articleNo="${articleData.article.number }" />
-				</div>
+
 				<div class="col-3"></div>
 			</div>
 

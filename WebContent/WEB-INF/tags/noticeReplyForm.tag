@@ -5,7 +5,7 @@
 <c:if test="${not empty sessionScope.authUser }">
 	<div>
 		<form action="${root }/notice/reply/add.do" method="post">
-			<input type="number" value="${ noticeNo}" name="no" hidden /> <input
+			<input type="number" value="${ noticeNo}" name="noticeNo" hidden /> <input
 				type="number" value="${ param.pageNo}" name="pageNo" hidden />
 	<div class="form-group">
 							<textarea cols="25" rows="4" class="form-control"

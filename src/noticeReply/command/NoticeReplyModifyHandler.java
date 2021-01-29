@@ -23,17 +23,14 @@ public class NoticeReplyModifyHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		User authUser = (User) req.getSession().getAttribute("authUser");
-		int no = Integer.valueOf(req.getParameter("modiNo"));
+		int no = Integer.valueOf(req.getParameter("no"));
 		System.out.println(no);
-		int articleNo = Integer.valueOf(req.getParameter("no"));
-		System.out.println(articleNo);
+		int noticeNo = Integer.valueOf(req.getParameter("noticeNo"));
+		System.out.println(noticeNo);
 		String body = req.getParameter("body");
 		System.out.println(body);
 
-		
-
-		
-		
+			
 		NoticeReplyModifyRequest reModReq = new NoticeReplyModifyRequest(no, authUser.getId(), body);
 		req.setAttribute("reModReq", reModReq);
 
@@ -46,7 +43,7 @@ public class NoticeReplyModifyHandler implements CommandHandler {
 
 			try {
 				modifyService.modify(reModReq);
-				res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + articleNo);
+				res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + noticeNo);
 				return null;
 			} catch (NoticeReplyNotFoundException e) {
 				e.printStackTrace();

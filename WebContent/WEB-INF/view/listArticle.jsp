@@ -83,7 +83,7 @@ a:active {
 									<th scope="row" class="text-center">공지</th>
 									<td><a href="${root }/notice/read.do?no=${notice.number}">
 											<c:out value="${notice.title }" />
-									</a>&nbsp;[${notice.replyCount }]</td>
+									</a>&nbsp;&nbsp;<c:if test="${notice.replyCount > 0}">[${notice.replyCount }]</c:if></td>
 									<td class="text-center" style="font-weight: normal;">${notice.writer.name }</td>
 									<td class="text-center" style="font-weight: normal;"><fmt:formatDate
 											value="${notice.regDate }" pattern="yyyy-MM-dd" /></td>

@@ -3,13 +3,12 @@ package noticeReply.service;
 import java.util.Map;
 
 public class NoticeReplyModifyRequest {
-	private int replyid;
+	private int id;
 	private String userId;
 	private String body;
 	
-	public NoticeReplyModifyRequest(int replyid, String userId, String body) {
-		super();
-		this.replyid = replyid;
+	public NoticeReplyModifyRequest(int id, String userId, String body) {
+		this.id = id;
 		this.userId = userId;
 		this.body = body;
 	}
@@ -17,8 +16,8 @@ public class NoticeReplyModifyRequest {
 	/**
 	 * @return the replyid
 	 */
-	public int getReplyid() {
-		return replyid;
+	public int getId() {
+		return id;
 	}
 
 	/**

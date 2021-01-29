@@ -6,7 +6,7 @@
 <%@ page import="noticeReply.model.*" %>
 <%@ page import="java.util.*"%>
 <%
-List<NoticeReply> noticeList = (List<NoticeReply>) request.getAttribute("noticerReplyList");
+List<NoticeReply> noticeList = (List<NoticeReply>) request.getAttribute("noticeReplyList");
 int size = noticeList.size();
 request.setAttribute("size", size);
 %>
@@ -111,7 +111,7 @@ request.setAttribute("size", size);
 									type="submit" class="btn btn-primary">수정</button></a>
 						</div>
 
-						<form action="${root }/article/remove.do" id="removeNotice-form"
+						<form action="${root }/notice/remove.do" id="removeNotice-form"
 							method="POST">
 							<input type="text" name="removeNo"
 								value="${noticeData.notice.number }" hidden />
@@ -123,12 +123,11 @@ request.setAttribute("size", size);
 						</form>
 					</c:if>
 				</div>
-				<hr />
+
 				<u:listNoticeReply />
 				<hr />
-				<div class="mb-3">
 					<u:noticeReplyForm noticeNo="${noticeData.notice.number }" />
-				</div>
+
 
 
 				<div class="col-3"></div>
