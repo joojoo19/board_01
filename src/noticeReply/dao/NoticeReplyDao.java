@@ -13,7 +13,7 @@ import reply.model.Reply;
 
 public class NoticeReplyDao {
 	public int delete(Connection con, int no) throws SQLException {
-		String sql = "DELETE notice_reply WHERE replyid = ?";
+		String sql = "DELETE notice_reply WHERE id = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, no);
 			return pstmt.executeUpdate();
@@ -21,7 +21,7 @@ public class NoticeReplyDao {
 	}
 	
 	public int update(Connection con, int no, String body) throws SQLException {
-		String sql = "UPDATE notice_reply SET body = ?, regdate = SYSDATE WHERE replyid = ?";
+		String sql = "UPDATE notice_reply SET body = ?, moddate = SYSDATE WHERE id = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, body);
 			pstmt.setInt(2, no);
@@ -30,36 +30,28 @@ public class NoticeReplyDao {
 	}
 
 	
-	public void insert(Connection conn, String userId, int noticeNo, String body) throws SQLException {
-		// 11g
-		/*
-		String sql = "INSERT INTO reply "
-				+ "(replyid, memberid, article_no, body, regdate) "
-				+ "VALUES (reply_seq.nextval, ?, ?, ?, SYSDATE)";
-		*/
-		
+	public void insert(Connection conn, String userId, int noticeNo, String body, int replyNo, int groupNo) throws SQLException {
+
 		String sql = "INSERT INTO notice_reply "
-				+ "(memberid, notice_no, body, regdate, moddate) "
-				+ "VALUES (?, ?, ?, SYSDATE, SYSDATE)";
+				+ "(replyid, groupid, memberid, notice_no, body, regdate, moddate) "
+				+ "VALUES (?, ?, ?, ?, ?, SYSDATE, SYSDATE)";
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, userId);
-			pstmt.setInt(2, noticeNo);
-			pstmt.setString(3, body);
+			pstmt.setInt(1, replyNo);
+			pstmt.setInt(2, groupNo);
+			pstmt.setString(3, userId);
+			pstmt.setInt(4, noticeNo);
+			pstmt.setString(5, body);
 			
 			pstmt.executeUpdate();
 		}
 	}
 
 	public List<NoticeReply> listReply(Connection con, int noticeNum) throws SQLException {
-		String sql = "SELECT replyid,"
-				+ " memberid,"
-				+ " notice_no,"
-				+ " body,"
-				+ " regdate, moddate, ROWNUM " + 
-				"FROM notice_reply " + 
-				"WHERE notice_no=? " + 
-				"ORDER BY replyid";
+		String sql = "SELECT * FROM (SELECT ROWNUM r, data.* FROM  " + 
+				"(SELECT LEVEL, id, replyid, groupid, memberid, notice_no, body, regdate, moddate FROM notice_reply " + 
+				"START WITH replyid = 0 CONNECT BY PRIOR id = replyid ORDER SIBLINGS BY groupid DESC) data) " + 
+				"WHERE notice_no =?";
 
 		List<NoticeReply> list = new ArrayList<>();
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -68,13 +60,15 @@ public class NoticeReplyDao {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				NoticeReply r = new NoticeReply();
-				r.setId(rs.getInt(1));
-				r.setMemberId(rs.getString(2));
-				r.setNoticeNum(rs.getInt(3));
-				r.setBody(rs.getString(4));
-				r.setRegDate(rs.getTimestamp(5));
-				r.setRegDate(rs.getTimestamp(6));
-				r.setCount(rs.getInt(7));
+				r.setLevel(rs.getInt(2));
+				r.setId(rs.getInt(3));
+				r.setReplyId(rs.getInt(4));
+				r.setGroupId(rs.getInt(5));
+				r.setMemberId(rs.getString(6));
+				r.setNoticeNo(rs.getInt(7));
+				r.setBody(rs.getString(8));
+				r.setRegDate(rs.getTimestamp(9));
+				r.setModDate(rs.getTimestamp(10));
 				
 				list.add(r);
 			}
@@ -82,13 +76,13 @@ public class NoticeReplyDao {
 		return list;
 	}
 
-	public NoticeReply selectById(Connection con, String id) throws SQLException {
+	public NoticeReply selectById(Connection con, int id) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM reply WHERE memberid = ?";
+		String sql = "SELECT * FROM notice_reply WHERE id = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
 			NoticeReply reply = null;
 			if (rs.next()) {
@@ -101,7 +95,7 @@ public class NoticeReplyDao {
 	
 	}
 	private NoticeReply convertReply(ResultSet rs) throws SQLException {
-		return new NoticeReply(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getTimestamp(5));
+		return new NoticeReply(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getTimestamp(7), rs.getTimestamp(8));
 	
 	}
 	

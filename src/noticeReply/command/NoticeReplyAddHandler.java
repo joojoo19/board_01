@@ -16,11 +16,19 @@ public class NoticeReplyAddHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("authUser");
-		
-		int noticeNo = Integer.parseInt(req.getParameter("no"));
+		String no = req.getParameter("no");
+		if(no == null || no.isEmpty()) {
+			no = "0";
+		}
+		int replyNo = Integer.parseInt(no);
+		int noticeNo = Integer.parseInt(req.getParameter("noticeNo"));
+		int groupNo = Integer.parseInt(no);				
+		if(groupNo == 0) {
+			groupNo = 1;
+		}
 		String userId = user.getId();
 		String body = req.getParameter("body");
-		addService.add(userId, noticeNo, body);
+		addService.add(userId, noticeNo, body, replyNo, groupNo);
 		
 		res.sendRedirect(req.getContextPath() + "/notice/read.do?no=" + noticeNo);
 		

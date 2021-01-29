@@ -16,7 +16,7 @@ public class NoticeReplyRemoveService {
 		try {
 			con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
-			NoticeReply reply = dao.selectById(con, authUser.getId());
+			NoticeReply reply = dao.selectById(con, no);
 
 			if(!reply.getMemberId().equals(authUser.getId())) {
 				throw new PermissionDeniedException();

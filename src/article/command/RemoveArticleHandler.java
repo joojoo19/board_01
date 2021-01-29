@@ -15,7 +15,6 @@ import article.service.ModifyRequest;
 import article.service.PermissionDeniedException;
 import article.service.ReadArticleService;
 import article.service.RemoveArticleService;
-import article.service.RemoveArticleService2;
 import auth.service.User;
 import mvc.command.CommandHandler;
 

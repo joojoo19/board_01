@@ -30,7 +30,7 @@
  -->
 	<context-param>
 		<param-name>jdbcUrl</param-name>
-		<param-value>jdbc:oracle:thin:@db202101040956_high?TNS_ADMIN=/home/opc/wallet</param-value>
+		<param-value>jdbc:oracle:thin:@db202101121035_high?TNS_ADMIN=/home/opc/wallet</param-value>
 	</context-param>
 
 	<context-param>
@@ -40,7 +40,7 @@
 
 	<context-param>
 		<param-name>jdbcPassword</param-name>
-		<param-value>Zsevgymko147</param-value>
+		<param-value>Asdfghjkl123</param-value>
 	</context-param>
 
 	<servlet>
