@@ -1,0 +1,94 @@
+ CREATE TABLE member (
+ memberid VARCHAR2(50) PRIMARY KEY,
+ name VARCHAR2(50) NOT NULL,
+ password VARCHAR2(20) NOT NULL,
+ email VARCHAR2(50) NOT NULL,
+ regdate DATE NOT NULL
+);
+
+ CREATE TABLE article (
+    article_no NUMBER GENERATED AS IDENTITY,
+    writer_id VARCHAR2(50) NOT NULL,
+    writer_name VARCHAR2(50) NOT NULL,
+    title VARCHAR2(255) NOT NULL,
+    regdate DATE NOT NULL,
+    moddate DATE NOT NULL,
+    read_cnt NUMBER,
+    PRIMARY KEY (article_no)
+);
+
+CREATE TABLE article_content (
+    article_no NUMBER PRIMARY KEY,
+    content VARCHAR2(4000)
+);
+
+CREATE TABLE reply(
+replyid NUMBER GENERATED AS IDENTITY,
+memberid VARCHAR2(50) NOT NULL,
+article_no NUMBER NOT NULL,
+body VARCHAR2(1000) NOT NULL,
+regdate DATE NOT NULL,
+moddate DATE,
+PRIMARY KEY (replyid)
+);
+
+CREATE TABLE notice_reply(
+replyid NUMBER GENERATED AS IDENTITY,
+memberid VARCHAR2(50) NOT NULL,
+notice_no NUMBER NOT NULL,
+body VARCHAR2(1000) NOT NULL,
+regdate DATE NOT NULL,
+moddate DATE,
+PRIMARY KEY (replyid)
+);
+
+CREATE VIEW article_view
+AS
+SELECT
+    a.article_no,
+    a.writer_id, a.writer_name, a.title, a.regdate,
+    a.moddate, a.read_cnt, COUNT(r.article_no) reply_cnt
+FROM article a LEFT JOIN reply r ON a.article_no = r.article_no
+GROUP BY a.article_no,
+    a.writer_id, a.writer_name, a.title, a.regdate,
+    a.moddate, a.read_cnt;
+
+
+
+CREATE TABLE notice (
+    notice_no NUMBER GENERATED AS IDENTITY,
+    writer_id VARCHAR2(50) NOT NULL,
+    writer_name VARCHAR2(50) NOT NULL,
+    title VARCHAR2(255) NOT NULL,
+    regdate DATE NOT NULL,
+    moddate DATE NOT NULL,
+    read_cnt NUMBER,
+    PRIMARY KEY (notice_no)
+);
+
+CREATE TABLE notice_content (
+    notice_no NUMBER PRIMARY KEY,
+    content VARCHAR2(4000)
+);
+
+
+DROP table member;
+
+commit;
+
+
+CREATE VIEW notice_view
+AS
+SELECT
+    n.notice_no,
+    n.writer_id, n.writer_name, n.title, n.regdate,
+    n.moddate, n.read_cnt, COUNT(r.notice_no) reply_cnt
+FROM notice n LEFT JOIN notice_reply r ON n.notice_no = r.notice_no
+GROUP BY n.notice_no,
+    n.writer_id, n.writer_name, n.title, n.regdate,
+    n.moddate, n.read_cnt;
+
+
+
+
+
